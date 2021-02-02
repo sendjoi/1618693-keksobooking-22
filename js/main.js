@@ -14,11 +14,11 @@ const getRandomArrayElement = (elements) => {
 
 const offerSamples = {
     author: {
-      avatar: img/avatars/user{{xx}}.png
+      avatar: img/avatars/user{{xx}}.png //Вопрос, как тут быть
     },
     offer: {
       title: "Best housing",
-      address: [location.x, location.y],
+      address: [location.x, location.y],   // Тут тоже вопрос по x, y
       price: getRandomNumber(0,100,0),
       type: getRandomArrayElement(typeInput),
       rooms: getRandomNumber(0,100,0),
@@ -39,7 +39,9 @@ const OFFERS_QUANTITY = 10;
 
   const createOffer = () => {
     return  {
-
+      // Тут мы  должны красиво получить массив
+      // Типо title: ????
+      // Вообщем вопросы))
     }
   }
 

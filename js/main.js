@@ -1,5 +1,5 @@
-const TITLES = ['Hotel Ukraine', 'Hostel Friens', 'House Island', 'Apartament Castle']
-const ADDRESS = ['Baker street 5c8', 'Red Square 2c3', 'Main Avenue 4c1', 'Green boulevard 5c9']
+const TITLES = ['Hotel Ukraine', 'Hostel Friens', 'House Island', 'Apartament Castle'];
+const ADDRESS = ['Baker street 5c8', 'Red Square 2c3', 'Main Avenue 4c1', 'Green boulevard 5c9'];
 const TYPE = ['palace', 'flat',  'house', 'bungalow'];
 const CHECKIN = ['12:00', '13:00', '14:00'];
 const CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -42,7 +42,7 @@ const createOffer = () => {
       type: getRandomArrayElement(TYPE),
       rooms: getRandomNumber(1,10,0),
       guests: getRandomNumber(1,20,0),
-      checkin: getRandomArrayElement(CHECKININPUT),
+      checkin: getRandomArrayElement(CHECKIN),
       checkout: getRandomArrayElement(CHECKOUT),
       features: getRandomArray(FEATURES),
       description: getRandomArrayElement(DESCRIPTIONS),

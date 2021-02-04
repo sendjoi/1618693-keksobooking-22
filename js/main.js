@@ -33,7 +33,7 @@ const getRandomArray = (elements) => {
 const createOffer = () => {
   return  {
     author: {
-      avatar: img/avatars/user`${'0' + getRandomNumber(1, 8, 0)}`.png // как сделать ведущий ноль? 01
+      avatar: img/avatars/user`$'0'+{getRandomNumber(1, 8, 0)}`.png
       },
     offer: {
       title: getRandomArrayElement(TITLES),

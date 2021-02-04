@@ -33,7 +33,7 @@ const getRandomArray = (elements) => {
 const createOffer = () => {
   return  {
     author: {
-      avatar: img/avatars/user`$'0'+{getRandomNumber(1, 8, 0)}`.png
+      avatar: 'img/avatars/`user0${getRandomNumber(1, 8, 0)}`.png'
       },
     offer: {
       title: getRandomArrayElement(TITLES),

@@ -19,7 +19,7 @@ const createOffer = () => {
   return  {
     author: {
       avatar: `img/avatars/user0${getRandomNumber(1, 8, 0)}.png`
-      },
+    },
     offer: {
       title: getRandomArrayElement(TITLES),
       address: getRandomArrayElement(ADDRESS),
@@ -32,14 +32,14 @@ const createOffer = () => {
       features: getRandomArray(FEATURES),
       description: getRandomArrayElement(DESCRIPTIONS),
       photos: getRandomArray(PHOTOS),
-      },
+    },
     location: {
       x: getRandomNumber(X_MIN_LIMIT, X_MAX_LIMIT, X_Y_FLOAT),
-      y: getRandomNumber(Y_MIN_LIMIT, Y_MAX_LIMIT, X_Y_FLOAT)
-      }
+      y: getRandomNumber(Y_MIN_LIMIT, Y_MAX_LIMIT, X_Y_FLOAT),
+    },
   }
 };
 
-const allOffers = new Array(OFFERS_QUANTITY).fill(null).map(() => createOffer());
+const allOffers = () => new Array(OFFERS_QUANTITY).fill(null).map(() => createOffer());
 
 export {allOffers};

@@ -1,4 +1,4 @@
-import {allOffers} from './util.js';
+import {allOffers} from './data.js';
 
 const addingOffers = () => {
 

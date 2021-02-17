@@ -18,7 +18,7 @@ const X_Y_FLOAT = 5;
 const createOffer = () => {
   return  {
     author: {
-      avatar: `img/avatars/user0${getRandomNumber(1, 8, 0)}.png`
+      avatar: `img/avatars/user0${getRandomNumber(1, 8, 0)}.png`,
     },
     offer: {
       title: getRandomArrayElement(TITLES),

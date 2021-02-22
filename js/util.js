@@ -11,11 +11,12 @@ const getRandomArrayElement = (elements) => {
 // Функция получения рандомного массива из массива
 const getRandomArray = (elements) => {
   const features = []
-  for (let i= 0; i < getRandomNumber(0, elements.length -1,0); i++) {
-    features.push(getRandomArrayElement(elements))
+  for (let i= 0; i < getRandomNumber(0, elements.length,0); i++) {
+    features.push(elements[i])
   }
   return features;
 };
 
 export {getRandomNumber, getRandomArrayElement, getRandomArray};
 // Проверка push
+

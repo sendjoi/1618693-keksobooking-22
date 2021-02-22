@@ -1,4 +1,4 @@
-import {allOffers} from './data.js';
-import  {addingOffer} from './card.js';
+import  {addingOffers} from './create-offers.js';
+import './form.js'
 
-
+addingOffers();

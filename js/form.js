@@ -1,24 +1,32 @@
 const housingType = document.querySelector('#type');
 const price = document.querySelector('#price');
 
+const timeIn = document.querySelector('#timein');
+const timeOut = document.querySelector('#timeout');
+
+const priceMap = {
+  palace: '5000',
+  flat: '2500',
+  house: '7000',
+  bungalow: '6000',
+}
+
 housingType.addEventListener('change', (event) => {
-  // как то определить какой выбрали option, а дальше switch
-  //console.dir(event.target.value);
-  switch (event.target.value) {
-    case 'palace':
-      price.value = '5000';
-      break;
-    case 'flat':
-      price.value = '2500';
-      break;
-    case 'house':
-      price.value = '7000';
-      break;
-    case 'bungalow':
-      price.value = '6000';
-  }
+  price.value = priceMap[event.target.value]
 })
 
+/*const timeMap = {
+  12:00: 'Выезд до 13',
+  13:00: 'Выезд до 14',
+  14:00: 'Выезд до 14',
+}
 
+timeIn.addEventListener('change', (event) => {
+  timeOut.value = timeMap[event.target.value]
+})
 
+timeOut.addEventListener('change', (event) => {
+  timeIn.value = timeMap[event.target.value]
+})
 
+*/

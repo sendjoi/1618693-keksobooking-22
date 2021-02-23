@@ -1,5 +1,5 @@
 import {allOffers} from './data.js';
-import {getDomphotos} from './util.js';
+import {fillPhotos} from './util.js';
 
 const placementMap = {
   palace: 'Дворец',
@@ -34,7 +34,7 @@ const addingOffers = () => {
     cardElement.querySelector('.popup__description').textContent = offer.description;
 
     const photoBlock =  cardElement.querySelector('.popup__photos');
-    getDomphotos(photoBlock, offer.photos);
+    fillPhotos(photoBlock, offer.photos);
 
     cardElement.querySelector('.popup__avatar').src = author.avatar;
 

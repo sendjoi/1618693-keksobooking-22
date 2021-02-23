@@ -15,18 +15,15 @@ housingType.addEventListener('change', (event) => {
   price.value = priceMap[event.target.value]
 })
 
-/*const timeMap = {
-  12:00: 'Выезд до 13',
-  13:00: 'Выезд до 14',
-  14:00: 'Выезд до 14',
-}
-
 timeIn.addEventListener('change', (event) => {
-  timeOut.value = timeMap[event.target.value]
+  const checkoutDigits = event.target.value.split(':');
+  checkoutDigits[0] = Number(checkoutDigits[0]);
+  timeOut.value = checkoutDigits.join(':')
 })
 
 timeOut.addEventListener('change', (event) => {
-  timeIn.value = timeMap[event.target.value]
+  const checkinDigits = event.target.value.split(':');
+  checkinDigits[0] = Number(checkinDigits[0]);
+  timeIn.value = checkinDigits.join(':')
 })
 
-*/

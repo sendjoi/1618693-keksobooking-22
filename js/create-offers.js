@@ -1,6 +1,13 @@
 import {allOffers} from './data.js';
+import {getDomphotos} from './util.js';
 
-
+const PlacementMap = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+  DEFAULT: 'Не установлено',
+}
 
 const addingOffers = () => {
 
@@ -19,44 +26,15 @@ const addingOffers = () => {
     cardElement.querySelector('.popup__text--address').textContent = offer.address;
     cardElement.querySelector('.popup__text--price').textContent = `${offer.price}₽/ночь`;
 
-    switch(offer.type) {
-      case 'palace':
-        cardElement.querySelector('.popup__type').textContent = 'Дворец';
-        break;
-      case 'flat':
-        cardElement.querySelector('.popup__type').textContent = 'Квартира';
-        break;
-      case 'house':
-        cardElement.querySelector('.popup__type').textContent = 'Дом';
-        break;
-      case 'bungalow':
-        cardElement.querySelector('.popup__type').textContent = 'Бунгало';
-    }
+    cardElement.querySelector('.popup__type').textContent = PlacementMap[offer.type];
 
     cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
     cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
     cardElement.querySelector('.popup__features').textContent = offer.features;
     cardElement.querySelector('.popup__description').textContent = offer.description;
 
-    const photoNode = cardElement.querySelector('.popup__photo');
     const photoBlock =  cardElement.querySelector('.popup__photos');
-
-    if (offer.photos && offer.photos.length > 0) {
-      photoNode.style.display='block';
-      offer.photos.forEach((photo, index) => {
-        if (index === 0) {
-          photoNode.src =  photo;
-        }
-        else {
-          const imgTemplate = photoNode.cloneNode();
-          imgTemplate.src = photo;
-          photoBlock.append(imgTemplate);
-        }
-      })
-    }
-    else {
-      photoNode.style.display='none';
-    }
+    getDomphotos(photoBlock, offer.photos);
 
     cardElement.querySelector('.popup__avatar').src = author.avatar;
 

@@ -16,7 +16,17 @@ const getRandomArray = (elements) => {
   }
   return features;
 };
+// Функция генерации дурацких фото
+const getDomphotos = function (photosBlock, photoSrc) {
+  const photoTemplate = photosBlock.querySelector('.popup__photo');
+  photoSrc.forEach((photo) => {
+    const imgTemplate = photoTemplate.cloneNode();
+    imgTemplate.src = photo;
+    photosBlock.append(imgTemplate);
+  })
+  photoTemplate.remove();
+}
+export {getRandomNumber, getRandomArrayElement, getRandomArray, getDomphotos};
 
-export {getRandomNumber, getRandomArrayElement, getRandomArray};
-// Проверка push
+
 

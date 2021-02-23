@@ -17,9 +17,8 @@ housingType.addEventListener('change', (event) => {
     case 'bungalow':
       price.value = '6000';
   }
-}
-)
+})
 
-console.dir(document.querySelector('#price'));
+
 
 

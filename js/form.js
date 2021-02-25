@@ -15,15 +15,11 @@ housingType.addEventListener('change', (event) => {
   price.value = priceMap[event.target.value]
 })
 
-timeIn.addEventListener('change', (event) => {
-  const checkoutDigits = event.target.value.split(':');
-  checkoutDigits[0] = Number(checkoutDigits[0]);
-  timeOut.value = checkoutDigits.join(':')
+timeIn.addEventListener('change', () => {
+  timeOut.selectedIndex = timeIn.selectedIndex;
 })
 
-timeOut.addEventListener('change', (event) => {
-  const checkinDigits = event.target.value.split(':');
-  checkinDigits[0] = Number(checkinDigits[0]);
-  timeIn.value = checkinDigits.join(':')
+timeOut.addEventListener('change', () => {
+  timeIn.selectedIndex = timeOut.selectedIndex;
 })
 

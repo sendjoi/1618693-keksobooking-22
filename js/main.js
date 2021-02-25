@@ -1,15 +1,7 @@
-import  {addingOffers} from './create-offers.js';
 import './form.js'
+import {getDisablePage } from './util.js';
+import {mapConnection} from './map.js';
 
-/*
-const form = document.querySelector('.ad-form');
-const filters = document.querySelector('.map__filters');
+getDisablePage();
 
-const housingType = document.querySelector('.housing-type');
-
-housingType.disabaled = true;
-
-form.classList.add('ad-form--disabled');
-filters.classList.add('.map__filters--disabled');
-
-*/
+mapConnection();

@@ -26,7 +26,62 @@ const fillPhotos = function (photosBlock, photosObjArray) {
   })
   photoTemplate.remove();
 }
-export {getRandomNumber, getRandomArrayElement, getRandomArray, fillPhotos};
+
+const getAblePage = function() {
+
+  const form = document.querySelector('.ad-form');
+  form.classList.remove('ad-form--disabled');
+
+  const filters = document.querySelector('.map__filters');
+  filters.classList.remove('map__filters--disabled')
+
+
+  const filter = document.querySelectorAll('select');
+  const inputs = document.querySelectorAll('input');
+  const textArea = document.querySelectorAll('textarea');
+
+  [...filter].forEach((element) => {
+    element.disabled = false;
+  });
+
+  [...inputs].forEach((element) => {
+    element.disabled = false;
+  });
+
+  [...textArea].forEach((element) => {
+    element.disabled = false;
+  });
+
+}
+
+const getDisablePage = function () {
+
+  const form = document.querySelector('.ad-form');
+  form.classList.add('ad-form--disabled');
+
+  const filters = document.querySelector('.map__filters');
+  filters.classList.add('map__filters--disabled')
+
+
+  const filter = document.querySelectorAll('select');
+  const inputs = document.querySelectorAll('input');
+  const textArea = document.querySelectorAll('textarea');
+
+  [...filter].forEach((element) => {
+    element.disabled = true;
+  });
+
+  [...inputs].forEach((element) => {
+    element.disabled = true;
+  });
+
+  [...textArea].forEach((element) => {
+    element.disabled = true;
+  });
+
+}
+
+export {getRandomNumber, getRandomArrayElement, getRandomArray, fillPhotos, getAblePage, getDisablePage};
 
 
 

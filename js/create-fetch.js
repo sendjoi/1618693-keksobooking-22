@@ -1,5 +1,4 @@
 import {showAlert} from './util.js';
-import {mapConnection} from './map.js';
 
 const createFetch = () => {
   return fetch (
@@ -16,41 +15,34 @@ const createFetch = () => {
 
       throw new Error(`${response.status} ${response.statusText}`);
     })
-    .then((json) => {
-      mapConnection(json);
-    })
     .catch(() => {
       showAlert('Ошибка получения данных');
     })
 };
 
-const offerForm = document.querySelector('.ad-form');
+const setSubmit = (evt, onSuccess) => {
 
+  const formData = new FormData(evt.target);
 
-const setUserFormSubmit = (onSuccess) => {
-
-  offerForm.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-
-    const formData = new FormData(evt.target);
-
-    fetch(
-      'https://22.javascript.pages.academy/keksobooking',
-      {
-        method: 'POST',
-      },
-    )
-      .then((response) => {
-        if (response.ok) {
-          onSuccess();
-        } else {
-          showAlert('Не удалось отправить форму');
-        }
-      })
-      .catch(() => {
-        showAlert('Не удалось отправить форму. Попробуйте ещё раз');
-      });
-  });
+  fetch(
+    'https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        return response.json();
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+    })
+    .catch(() => {
+      showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+    });
 }
 
-export {createFetch, setUserFormSubmit};
+
+export {createFetch, setSubmit};

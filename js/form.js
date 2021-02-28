@@ -1,3 +1,7 @@
+import {setSubmit} from './create-fetch.js';
+import {showAlert} from './util.js';
+
+
 const housingType = document.querySelector('#type');
 const price = document.querySelector('#price');
 
@@ -21,5 +25,24 @@ timeIn.addEventListener('change', () => {
 
 timeOut.addEventListener('change', () => {
   timeIn.selectedIndex = timeOut.selectedIndex;
+})
+
+const getSuccessMessage = function() {
+
+  const templateSuccess = document.querySelector('#success')
+    .content
+    .querySelector('.message');
+
+  const seccessElement = templateSuccess.cloneNode(true);
+
+  document.body.main.append(seccessElement);
+
+}
+
+const offerForm = document.querySelector('.ad-form');
+
+offerForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  setSubmit(evt, getSuccessMessage);
 })
 

@@ -1,13 +1,13 @@
 import './form.js'
 import {getDisablePage} from './util.js';
-import {createFetch, setUserFormSubmit} from './create-fetch.js';
+import {createFetch} from './create-fetch.js';
+import {mapConnection} from './map.js';
 
 getDisablePage();
 
-createFetch();
-
-setUserFormSubmit();
-
+createFetch().then((offers) => {
+  mapConnection(offers);
+});
 
 
 

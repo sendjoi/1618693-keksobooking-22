@@ -42,4 +42,5 @@ const createOffer = () => {
 
 const makeAllOffers = () => new Array(OFFERS_QUANTITY).fill(null).map(() => createOffer());
 
+
 export {makeAllOffers};

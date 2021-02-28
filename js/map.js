@@ -1,8 +1,7 @@
 import { getAblePage} from './util.js';
 import  {addingOffers} from './create-offers.js';
-import { makeAllOffers } from './data.js';
 
-const mapConnection = function () {
+const mapConnection = function (allOffers) {
 
   /* global L:readonly */
   const map = L.map('map-canvas')
@@ -46,7 +45,9 @@ const mapConnection = function () {
   console.log(evt.target.getLatLng());
   }); */
 
-  const allOffers = makeAllOffers();
+  // offers это объект, как сделать из него массив, чтобы с этим массивом работать как с моковыми данными?
+
+  // const allOffers = makeAllOffers();
 
   allOffers.forEach((point) => {
     const icon = L.icon({
@@ -57,8 +58,8 @@ const mapConnection = function () {
 
     const marker = L.marker(
       {
-        lat : point.location.x,
-        lng : point.location.y,
+        lat : point.location.lat,
+        lng : point.location.lng,
       },
       {
         icon,

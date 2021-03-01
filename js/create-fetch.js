@@ -1,5 +1,5 @@
-import {showAlert} from './util.js';
-import {getErrorMessage} from './form.js';
+import {showAlert} from './alert.js';
+import {getErrorMessage} from './alert.js';
 
 const createFetch = () => {
   return fetch (
@@ -38,7 +38,7 @@ const setSubmit = (form) => {
       }
     })
     .catch(() => {
-      showAlert('Не удалось отправить форму. Попробуйте ещё раз'); // это буду править на другую функцию
+      getErrorMessage();
     });
 }
 

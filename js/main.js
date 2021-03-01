@@ -8,7 +8,3 @@ getDisablePage();
 createFetch().then((offers) => {
   mapConnection(offers);
 });
-
-
-
-// https://22.javascript.pages.academy/keksobooking/data  методом POST  с типом multipart/form-data

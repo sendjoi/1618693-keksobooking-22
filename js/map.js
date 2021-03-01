@@ -11,7 +11,7 @@ const mapConnection = function (allOffers) {
     .setView({
       lat: 35.6895000,
       lng: 139.6917100,
-    }, 11,5);
+    }, 9.4);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

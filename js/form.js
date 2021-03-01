@@ -1,7 +1,6 @@
 import {setSubmit} from './create-fetch.js';
 import {showAlert} from './util.js';
 
-
 const housingType = document.querySelector('#type');
 const price = document.querySelector('#price');
 
@@ -27,22 +26,62 @@ timeOut.addEventListener('change', () => {
   timeIn.selectedIndex = timeOut.selectedIndex;
 })
 
+
 const getSuccessMessage = function() {
+  const mainForm = document.querySelector('main');
 
-  const templateSuccess = document.querySelector('#success')
-    .content
-    .querySelector('.message');
+  const templateSuccess = document.querySelector('#success').content
 
-  const seccessElement = templateSuccess.cloneNode(true);
+  const successElement = templateSuccess.cloneNode(true);
 
-  document.body.main.append(seccessElement);
+  mainForm.append(successElement);
 
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {
+      evt.preventDefault();
+      mainForm.remove(successElement);
+    }
+  });
+  document.addEventListener('click' , (evt) => {
+    evt.preventDefault();
+    mainForm.remove(successElement);
+  })
 }
+
+const getErrorMessage = function() {
+  const mainForm = document.querySelector('main');
+  const templateError = document.querySelector('#error').content
+
+  const errorElement = templateError.cloneNode(true);
+
+  mainForm.append(errorElement);
+
+  const closeElement = errorElement.querySelector('.error__button');
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {
+      evt.preventDefault();
+      mainForm.remove(errorElement);
+    }
+  });
+  document.addEventListener('click' , (evt) => {
+    evt.preventDefault();
+    mainForm.remove(errorElement);
+  });
+  closeElement.addEventListener('click', () => {
+    mainForm.remove(errorElement);
+  })
+}
+
+
 
 const offerForm = document.querySelector('.ad-form');
 
 offerForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  setSubmit(evt, getSuccessMessage);
+  setSubmit(evt.target).then(() => {
+    showAlert('Удалось отправить форму.');
+  });
 })
 
+export {getErrorMessage};

@@ -1,4 +1,5 @@
 import {showAlert} from './util.js';
+import {getErrorMessage} from './form.js';
 
 const createFetch = () => {
   return fetch (
@@ -20,29 +21,25 @@ const createFetch = () => {
     })
 };
 
-const setSubmit = (evt, onSuccess) => {
+const setSubmit = (form) => {
 
-  const formData = new FormData(evt.target);
+  const body = new FormData(form);
 
-  fetch(
-    'https://22.javascript.pages.academy/keksobooking',
-    {
-      method: 'POST',
-      body: formData,
-    },
+  return fetch('https://22.javascript.pages.academy/keksobooking', {
+    method: 'POST',
+    body,
+  },
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
         return response.json();
       } else {
         throw new Error(`${response.status} ${response.statusText}`);
       }
     })
     .catch(() => {
-      showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+      showAlert('Не удалось отправить форму. Попробуйте ещё раз'); // это буду править на другую функцию
     });
 }
-
 
 export {createFetch, setSubmit};

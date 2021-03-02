@@ -1,5 +1,6 @@
 import {setSubmit} from './create-fetch.js';
-import {getSuccessMessage} from './alert.js';
+import {getSuccessMessage, getErrorMessage} from './alert.js';
+
 
 const housingType = document.querySelector('#type');
 const price = document.querySelector('#price');
@@ -33,7 +34,10 @@ offerForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   setSubmit(evt.target).then(() => {
     getSuccessMessage();
-  });
+  })
+    .catch(() => {
+      getErrorMessage();
+    })
 })
 
-/* */
+

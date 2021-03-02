@@ -1,6 +1,3 @@
-import {showAlert} from './alert.js';
-import {getErrorMessage} from './alert.js';
-
 const createFetch = () => {
   return fetch (
     'https://22.javascript.pages.academy/keksobooking/data',
@@ -13,11 +10,7 @@ const createFetch = () => {
       if (response.ok) {
         return response.json();
       }
-
       throw new Error(`${response.status} ${response.statusText}`);
-    })
-    .catch(() => {
-      showAlert('Ошибка получения данных');
     })
 };
 
@@ -37,9 +30,6 @@ const setSubmit = (form) => {
         throw new Error(`${response.status} ${response.statusText}`);
       }
     })
-    .catch(() => {
-      getErrorMessage();
-    });
 }
 
 export {createFetch, setSubmit};

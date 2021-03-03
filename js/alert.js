@@ -12,17 +12,20 @@ const getErrorMessage = function() {
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === ('Escape' || 'Esc')) {
-      evt.preventDefault();
       errorElement.remove();
+
     }
   });
-  document.addEventListener('click' , (evt) => {
-    evt.preventDefault();
+  document.addEventListener('click' , () => {
     errorElement.remove();
   });
   closeElement.addEventListener('click', () => {
     errorElement.remove();
   })
+  document.removeEventListener('click', getErrorMessage)
+  document.removeEventListener('keydown', getErrorMessage)
+  closeElement.removeEventListener('click', getErrorMessage)
+  document.querySelector('.ad-form').reset();
 }
 
 const getSuccessMessage = function() {
@@ -38,14 +41,15 @@ const getSuccessMessage = function() {
 
   document.addEventListener('keydown', (evt) => {
     if (evt.key === ('Escape' || 'Esc')) {
-      evt.preventDefault();
       successElement.remove();
     }
   });
-  document.addEventListener('click' , (evt) => {
-    evt.preventDefault();
+  document.addEventListener('click' , () => {
     successElement.remove();
   })
+  document.removeEventListener('keydown', getErrorMessage);
+  document.removeEventListener('click', getSuccessMessage);
+  document.querySelector('.ad-form').reset();
 }
 
 const showAlert = (message) => {

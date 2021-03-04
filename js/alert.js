@@ -1,3 +1,17 @@
+const onClickOk = function (element) {
+  element.addEventListener('click' , () => {element.remove();})
+  element.removeEventListener('click' , () => {element.remove();})
+}
+
+const onKeydown = function (element) {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {element.remove();}
+  });
+  document.removeEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {element.remove();}
+  });
+}
+
 const getErrorMessage = function() {
   const mainForm = document.querySelector('main');
   const templateError = document.querySelector('#error')
@@ -9,18 +23,9 @@ const getErrorMessage = function() {
   mainForm.append(errorElement);
 
   const closeElement = errorElement.querySelector('.error__button');
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {errorElement.remove()}
-  });
-  document.removeEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {errorElement.remove()}
-  });
-  document.addEventListener('click' , () => {errorElement.remove();});
-  document.removeEventListener('click' , () => {errorElement.remove();});
-
-  closeElement.addEventListener('click', () => {errorElement.remove()})
-  closeElement.removeEventListener('click', () => {errorElement.remove()})
+  onKeydown(errorElement);
+  onClickOk(errorElement);
+  onClickOk(closeElement);
 }
 
 const getSuccessMessage = function() {
@@ -34,15 +39,8 @@ const getSuccessMessage = function() {
 
   mainForm.append(successElement);
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {successElement.remove();}
-  });
-  document.removeEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {successElement.remove();}
-  });
-
-  document.addEventListener('click' , () => {successElement.remove();})
-  document.removeEventListener('click' , () => {successElement.remove();})
+  onClickOk(successElement);
+  onKeydown(successElement);
 
   document.querySelector('.ad-form').reset();
 }

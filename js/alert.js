@@ -11,21 +11,16 @@ const getErrorMessage = function() {
   const closeElement = errorElement.querySelector('.error__button');
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {
-      errorElement.remove();
+    if (evt.key === ('Escape' || 'Esc')) {errorElement.remove()}
+  });
+  document.removeEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {errorElement.remove()}
+  });
+  document.addEventListener('click' , () => {errorElement.remove();});
+  document.removeEventListener('click' , () => {errorElement.remove();});
 
-    }
-  });
-  document.addEventListener('click' , () => {
-    errorElement.remove();
-  });
-  closeElement.addEventListener('click', () => {
-    errorElement.remove();
-  })
-  document.removeEventListener('click', getErrorMessage)
-  document.removeEventListener('keydown', getErrorMessage)
-  closeElement.removeEventListener('click', getErrorMessage)
-  document.querySelector('.ad-form').reset();
+  closeElement.addEventListener('click', () => {errorElement.remove()})
+  closeElement.removeEventListener('click', () => {errorElement.remove()})
 }
 
 const getSuccessMessage = function() {
@@ -40,15 +35,15 @@ const getSuccessMessage = function() {
   mainForm.append(successElement);
 
   document.addEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {
-      successElement.remove();
-    }
+    if (evt.key === ('Escape' || 'Esc')) {successElement.remove();}
   });
-  document.addEventListener('click' , () => {
-    successElement.remove();
-  })
-  document.removeEventListener('keydown', getErrorMessage);
-  document.removeEventListener('click', getSuccessMessage);
+  document.removeEventListener('keydown', (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {successElement.remove();}
+  });
+
+  document.addEventListener('click' , () => {successElement.remove();})
+  document.removeEventListener('click' , () => {successElement.remove();})
+
   document.querySelector('.ad-form').reset();
 }
 

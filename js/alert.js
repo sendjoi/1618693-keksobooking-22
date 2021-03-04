@@ -3,15 +3,6 @@ const onClickOk = function (element) {
   element.removeEventListener('click' , () => {element.remove();})
 }
 
-const onKeydown = function (element) {
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {element.remove();}
-  });
-  document.removeEventListener('keydown', (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {element.remove();}
-  });
-}
-
 const getErrorMessage = function() {
   const mainForm = document.querySelector('main');
   const templateError = document.querySelector('#error')
@@ -22,8 +13,16 @@ const getErrorMessage = function() {
 
   mainForm.append(errorElement);
 
+  const onKeydown = (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {
+      document.removeEventListener('keydown', onKeydown)
+      errorElement.remove();
+    }
+  }
+
+  document.addEventListener('keydown', onKeydown);
+
   const closeElement = errorElement.querySelector('.error__button');
-  onKeydown(errorElement);
   onClickOk(errorElement);
   onClickOk(closeElement);
 }
@@ -39,8 +38,15 @@ const getSuccessMessage = function() {
 
   mainForm.append(successElement);
 
+  const onKeydown = (evt) => {
+    if (evt.key === ('Escape' || 'Esc')) {
+      document.removeEventListener('keydown', onKeydown)
+      successElement.remove();
+    }
+  }
+  document.addEventListener('keydown', onKeydown);
+
   onClickOk(successElement);
-  onKeydown(successElement);
 
   document.querySelector('.ad-form').reset();
 }

@@ -38,4 +38,5 @@ offerForm.addEventListener('submit', (evt) => {
     })
 })
 
+const offerNameInput = document.querySelector('№title');
 

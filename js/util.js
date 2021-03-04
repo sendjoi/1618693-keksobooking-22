@@ -81,6 +81,7 @@ const getDisablePage = function () {
 
 }
 
+
 export {getRandomNumber, getRandomArrayElement, getRandomArray, fillPhotos, getAblePage, getDisablePage};
 
 

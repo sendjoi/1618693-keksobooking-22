@@ -1,7 +1,15 @@
 import { getAblePage} from './util.js';
 import  {addingOffers} from './create-offers.js';
 
-const mapConnection = function (allOffers) {
+const getHousingTypeFilter = function (allOffers, type) {
+
+  const sortOffers  = [];
+
+  allOffers.forEach((element) => {
+    if (element.offer.type === type) {
+      sortOffers.push(element)
+    }
+  })
 
   /* global L:readonly */
   const map = L.map('map-canvas')
@@ -45,7 +53,11 @@ const mapConnection = function (allOffers) {
   console.log(evt.target.getLatLng());
   }); */
 
-  allOffers.forEach((point) => {
+  // offers это объект, как сделать из него массив, чтобы с этим массивом работать как с моковыми данными?
+
+  // const allOffers = makeAllOffers();
+
+  sortOffers.forEach((point) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
@@ -72,4 +84,4 @@ const mapConnection = function (allOffers) {
       );
   })
 }
-export {mapConnection};
+export {getHousingTypeFilter};

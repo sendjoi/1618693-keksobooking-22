@@ -2,17 +2,14 @@ import { getAblePage} from './util.js';
 import  {addingOffers} from './create-offers.js';
 
 const appFilters = function (offers, filters) {
+  let filtredOffers = [...offers];
   filters.forEach((filter) => {
-    offers.forEach((element) => {
-      if (element.offer.type === filter.type) {
-        offers.pop(element)
-      }
-    })
+    filtredOffers = offers.filter(({offer}) => offer[filter.key] === filter.value)
   })
 
   const OFFER_COUNT = 10;
-  offers.slice(0, OFFER_COUNT);
-  return offers;
+  filtredOffers.slice(0, OFFER_COUNT);
+  return filtredOffers;
 }
 
 const drawMap = function (allOffers) {

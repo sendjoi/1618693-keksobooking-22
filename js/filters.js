@@ -4,7 +4,8 @@ const setFilterAction = function (callback) {
 
   housingTypeFilter.addEventListener('change', (evt) => {
     const typeMap = {
-      type: evt.target.value,
+      key: 'type',
+      value: evt.target.value,
     }
     filters.push(typeMap);
     callback(filters);

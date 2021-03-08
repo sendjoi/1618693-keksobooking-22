@@ -2,7 +2,7 @@ import './form.js'
 import {getDisablePage} from './util.js';
 import {createFetch} from './create-fetch.js';
 import {mapModule} from './map.js';
-import {setFilterAction} from './filters';
+import {setFilterAction} from './filters.js';
 import {showAlert} from './alert.js';
 
 getDisablePage();

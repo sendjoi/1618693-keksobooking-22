@@ -1,9 +1,5 @@
 import {setSubmit} from './create-fetch.js';
 import {getSuccessMessage, getErrorMessage} from './alert.js';
-import {createFetch} from './create-fetch.js';
-import {showAlert} from './alert.js';
-import {getHousingTypeFilter} from './filters.js';
-
 
 
 const housingType = document.querySelector('#type');
@@ -31,6 +27,15 @@ timeOut.addEventListener('change', () => {
   timeIn.selectedIndex = timeOut.selectedIndex;
 })
 
+
+/*
+const addressInput = document.querySelector('#address');
+
+  mainPinMarker.on('moveend', (evt) => {
+  addressInput.value = evt.target.getLatLng());
+  });
+*/
+
 const offerForm = document.querySelector('.ad-form');
 
 offerForm.addEventListener('submit', (evt) => {
@@ -43,37 +48,50 @@ offerForm.addEventListener('submit', (evt) => {
     })
 })
 
-const offerNameInput = document.querySelector('#title');
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const offerTitleInput = document.querySelector('#title');
 
-/*offerNameInput.addEventListener('invalid', () => {
-  if (userNameInput.validity.valueMissing) {
-    userNameInput.setCustomValidity('Обязательное поле');
+
+offerTitleInput.addEventListener('invalid', () => {
+  if (offerTitleInput.validity.valueMissing) {
+    offerTitleInput.setCustomValidity('Обязательное поле');
   } else {
-    userNameInput.setCustomValidity('');
+    offerTitleInput.setCustomValidity('');
   }
 });
 
-userNameInput.addEventListener('input', () => {
-  const valueLength = userNameInput.value.length;
+offerTitleInput.addEventListener('input', () => {
+  const valueLength = offerTitleInput.value.length;
 
-  if (valueLength < MIN_NAME_LENGTH) {
-    userNameInput.setCustomValidity('Ещё ' + (MIN_NAME_LENGTH - valueLength) +' симв.');
-  } else if (valueLength > MAX_NAME_LENGTH) {
-    userNameInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_NAME_LENGTH) +' симв.');
+  if (valueLength < MIN_TITLE_LENGTH) {
+    offerTitleInput.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) +' симв.');
+  } else if (valueLength > MAX_TITLE_LENGTH) {
+    offerTitleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) +' симв.');
   } else {
-    userNameInput.setCustomValidity('');
+    offerTitleInput.setCustomValidity('');
   }
 });
-*/
-const housingTypeFilter = document.querySelector('#housing-type');
 
-housingTypeFilter.addEventListener('change', (evt) => {
-  const OFFER_COUNT = 10;
-  createFetch()
-    .then((offers) => {
-      getHousingTypeFilter(offers.slice(0, OFFER_COUNT), evt.target.value);
-    })
-    .catch(() => {
-      showAlert('Ошибка получения данных');
-    });
-})
+
+const MAX_PRICE = 1000000;
+const offerPriceInput = document.querySelector('#price');
+
+
+offerPriceInput.addEventListener('invalid', () => {
+  if (offerPriceInput.validity.valueMissing) {
+    offerPriceInput.setCustomValidity('Обязательное поле');
+  } else {
+    offerPriceInput.setCustomValidity('');
+  }
+});
+
+offerPriceInput.addEventListener('input', () => {
+  const valueLength = offerPriceInput.value;
+
+  if (valueLength > MAX_PRICE) {
+    offerPriceInput.setCustomValidity('Максимальная цена ' + MAX_PRICE);
+  } else {
+    offerPriceInput.setCustomValidity('');
+  }
+});

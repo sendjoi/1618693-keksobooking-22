@@ -1,7 +1,19 @@
 import { getAblePage} from './util.js';
 import  {addingOffers} from './create-offers.js';
 
-const mapConnection = function (allOffers) {
+const appFilters = function (offers, filters) {
+  const sortedOffers = [];
+  offers.forEach((element) => {
+    if (element.offer.type === filters) {
+      sortedOffers.push(element)
+    }
+  })
+  const OFFER_COUNT = 10;
+  sortedOffers.slice(0, OFFER_COUNT);
+  return sortedOffers;
+}
+
+const drawMap = function (allOffers) {
 
   /* global L:readonly */
   const map = L.map('map-canvas')
@@ -72,4 +84,15 @@ const mapConnection = function (allOffers) {
       );
   })
 }
-export {mapConnection};
+
+
+const mapModule = function (offers) {
+
+  const render = function(filters = []) {
+    drawMap(appFilters(offers, filters));
+  }
+  return render
+}
+
+
+export {mapModule};

@@ -1,6 +1,9 @@
 import { getAblePage} from './util.js';
 import  {addingOffers} from './create-offers.js';
 
+let map = null;
+let marker = [];
+
 const appFilters = function (offers, filters) {
   let filtredOffers = [...offers];
   filters.forEach((filter) => {
@@ -12,10 +15,10 @@ const appFilters = function (offers, filters) {
   return filtredOffers;
 }
 
-const drawMap = function (allOffers) {
+const mapStart = function () {
 
   /* global L:readonly */
-  const map = L.map('map-canvas')
+  map = L.map('map-canvas')
     .on('load', () => {
       getAblePage();
     })
@@ -31,6 +34,9 @@ const drawMap = function (allOffers) {
     },
   ).addTo(map);
 
+}
+
+const drawMap = function (allOffers) {
   const mainPinIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
@@ -63,7 +69,7 @@ const drawMap = function (allOffers) {
       iconAnchor: [20, 40],
     });
 
-    const marker = L.marker(
+    marker = L.marker(
       {
         lat : point.location.lat,
         lng : point.location.lng,
@@ -86,12 +92,12 @@ const drawMap = function (allOffers) {
 
 
 const mapModule = function (offers) {
-
+  mapStart();
   const render = function(filters = []) {
+    marker = [];
     drawMap(appFilters(offers, filters));
-  }
-  return render
-}
-
+  };
+  return render;
+};
 
 export {mapModule};

@@ -3,6 +3,8 @@ const onClickOk = function (element) {
   element.removeEventListener('click' , () => {element.remove();})
 }
 
+
+
 const getErrorMessage = function() {
   const mainForm = document.querySelector('main');
   const templateError = document.querySelector('#error')
@@ -26,6 +28,8 @@ const getErrorMessage = function() {
   onClickOk(errorElement);
   onClickOk(closeElement);
 }
+
+
 
 const getSuccessMessage = function() {
   const mainForm = document.querySelector('main');

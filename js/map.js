@@ -1,10 +1,25 @@
-import { getAblePage} from './util.js';
+import {getAblePage, getNormalAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
+import {putAddressinInput} from './form.js';
 
-const mapConnection = function (allOffers) {
+
+let map = null;
+
+const appFilters = function (offers, filters) {
+  let filtredOffers = [...offers];
+  filters.forEach((filter) => {
+    filtredOffers = offers.filter(({offer}) => offer[filter.key] === filter.value)
+  })
+
+  const OFFER_COUNT = 10;
+  filtredOffers.slice(0, OFFER_COUNT);
+  return filtredOffers;
+}
+
+const mapStart = function () {
 
   /* global L:readonly */
-  const map = L.map('map-canvas')
+  map = L.map('map-canvas')
     .on('load', () => {
       getAblePage();
     })
@@ -39,15 +54,22 @@ const mapConnection = function (allOffers) {
 
   mainPinMarker.addTo(map);
 
-  /*
-  Вернуть новые координаты метки
   mainPinMarker.on('moveend', (evt) => {
-  console.log(evt.target.getLatLng());
-  }); */
+    putAddressinInput(getNormalAddress(evt.target.getLatLng()));
+  });
 
-  // offers это объект, как сделать из него массив, чтобы с этим массивом работать как с моковыми данными?
 
-  // const allOffers = makeAllOffers();
+
+}
+
+
+const drawMap = function (allOffers) {
+  map.eachLayer((layer) => {
+    if (layer.removable) {
+      map.removeLayer(layer);
+    }
+  })
+
 
   allOffers.forEach((point) => {
     const icon = L.icon({
@@ -66,6 +88,7 @@ const mapConnection = function (allOffers) {
       },
     );
 
+    marker.removable = true;
     marker
       .addTo(map)
       .bindPopup(
@@ -74,9 +97,16 @@ const mapConnection = function (allOffers) {
           keepInView: true,
         },
       );
-
   })
-
 }
 
-export {mapConnection};
+
+const mapModule = function (offers) {
+  mapStart();
+  const render = function(filters = []) {
+    drawMap(appFilters(offers, filters));
+  };
+  return render;
+};
+
+export {mapModule};

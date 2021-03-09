@@ -1,13 +1,16 @@
 const setFilterAction = function (callback) {
-  const filters = [];
+  let filters = [];
   const housingTypeFilter = document.querySelector('#housing-type');
 
   housingTypeFilter.addEventListener('change', (evt) => {
-    const typeMap = {
-      key: 'type',
-      value: evt.target.value,
+    filters = [];
+    if (evt.target.value !== 'any') {
+      const typeMap = {
+        key: 'type',
+        value: evt.target.value,
+      }
+      filters.push(typeMap);
     }
-    filters.push(typeMap);
     callback(filters);
   })
 }

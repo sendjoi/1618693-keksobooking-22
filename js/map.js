@@ -1,8 +1,9 @@
-import { getAblePage} from './util.js';
+import {getAblePage, getNormalAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
+import {putAddressinInput} from './form.js';
+
 
 let map = null;
-let marker = [];
 
 const appFilters = function (offers, filters) {
   let filtredOffers = [...offers];
@@ -34,9 +35,6 @@ const mapStart = function () {
     },
   ).addTo(map);
 
-}
-
-const drawMap = function (allOffers) {
   const mainPinIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
@@ -56,11 +54,22 @@ const drawMap = function (allOffers) {
 
   mainPinMarker.addTo(map);
 
-  /*
-  Вернуть новые координаты метки
   mainPinMarker.on('moveend', (evt) => {
-  console.log(evt.target.getLatLng());
-  }); */
+    putAddressinInput(getNormalAddress(evt.target.getLatLng()));
+  });
+
+
+
+}
+
+
+const drawMap = function (allOffers) {
+  map.eachLayer((layer) => {
+    if (layer.removable) {
+      map.removeLayer(layer);
+    }
+  })
+
 
   allOffers.forEach((point) => {
     const icon = L.icon({
@@ -69,7 +78,7 @@ const drawMap = function (allOffers) {
       iconAnchor: [20, 40],
     });
 
-    marker = L.marker(
+    const marker = L.marker(
       {
         lat : point.location.lat,
         lng : point.location.lng,
@@ -79,6 +88,7 @@ const drawMap = function (allOffers) {
       },
     );
 
+    marker.removable = true;
     marker
       .addTo(map)
       .bindPopup(
@@ -94,7 +104,6 @@ const drawMap = function (allOffers) {
 const mapModule = function (offers) {
   mapStart();
   const render = function(filters = []) {
-    marker = [];
     drawMap(appFilters(offers, filters));
   };
   return render;

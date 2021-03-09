@@ -27,14 +27,13 @@ timeOut.addEventListener('change', () => {
   timeIn.selectedIndex = timeOut.selectedIndex;
 })
 
-
-/*
 const addressInput = document.querySelector('#address');
 
-  mainPinMarker.on('moveend', (evt) => {
-  addressInput.value = evt.target.getLatLng());
-  });
-*/
+
+const putAddressinInput = function (coordinates) {
+  addressInput.value = coordinates;
+}
+
 
 const offerForm = document.querySelector('.ad-form');
 
@@ -95,3 +94,5 @@ offerPriceInput.addEventListener('input', () => {
     offerPriceInput.setCustomValidity('');
   }
 });
+
+export {putAddressinInput};

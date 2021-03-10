@@ -1,4 +1,4 @@
-import {getAblePage, getNormalAddress} from './util.js';
+import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
 
@@ -55,7 +55,7 @@ const mapStart = function () {
   mainPinMarker.addTo(map);
 
   mainPinMarker.on('moveend', (evt) => {
-    putAddressinInput(getNormalAddress(evt.target.getLatLng()));
+    putAddressinInput(normalizeAddress(evt.target.getLatLng()));
   });
 
 

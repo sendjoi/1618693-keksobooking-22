@@ -19,6 +19,32 @@ housingType.addEventListener('change', (event) => {
   price.value = priceMap[event.target.value]
 })
 
+const MAX_PRICE = 1000000;
+const offerPriceInput = document.querySelector('#price');
+
+
+offerPriceInput.addEventListener('invalid', () => {
+  if (offerPriceInput.validity.valueMissing) {
+    offerPriceInput.setCustomValidity('Обязательное поле');
+  } else {
+    offerPriceInput.setCustomValidity('');
+  }
+});
+
+offerPriceInput.addEventListener('input', () => {
+  const valueLength = offerPriceInput.value;
+
+  if (valueLength > MAX_PRICE) {
+    offerPriceInput.setCustomValidity('Максимальная цена ' + MAX_PRICE).reportValidity();
+  } else {
+    offerPriceInput.setCustomValidity('');
+  }
+});
+
+
+
+
+
 timeIn.addEventListener('change', () => {
   timeOut.selectedIndex = timeIn.selectedIndex;
 })
@@ -53,6 +79,7 @@ const offerTitleInput = document.querySelector('#title');
 
 
 offerTitleInput.addEventListener('invalid', () => {
+
   if (offerTitleInput.validity.valueMissing) {
     offerTitleInput.setCustomValidity('Обязательное поле');
   } else {
@@ -69,29 +96,6 @@ offerTitleInput.addEventListener('input', () => {
     offerTitleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) +' симв.');
   } else {
     offerTitleInput.setCustomValidity('');
-  }
-});
-
-
-const MAX_PRICE = 1000000;
-const offerPriceInput = document.querySelector('#price');
-
-
-offerPriceInput.addEventListener('invalid', () => {
-  if (offerPriceInput.validity.valueMissing) {
-    offerPriceInput.setCustomValidity('Обязательное поле');
-  } else {
-    offerPriceInput.setCustomValidity('');
-  }
-});
-
-offerPriceInput.addEventListener('input', () => {
-  const valueLength = offerPriceInput.value;
-
-  if (valueLength > MAX_PRICE) {
-    offerPriceInput.setCustomValidity('Максимальная цена ' + MAX_PRICE);
-  } else {
-    offerPriceInput.setCustomValidity('');
   }
 });
 

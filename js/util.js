@@ -81,12 +81,12 @@ const getDisablePage = function () {
 
 }
 
-const getNormalAddress = function (address) {
+const normalizeAddress = function (address) {
   return address.lat.toFixed(5) + ', ' + address.lng.toFixed(5);
 }
 
 
-export {getRandomNumber, getRandomArrayElement, getRandomArray, fillPhotos, getAblePage, getDisablePage, getNormalAddress};
+export {getRandomNumber, getRandomArrayElement, getRandomArray, fillPhotos, getAblePage, getDisablePage, normalizeAddress};
 
 
 

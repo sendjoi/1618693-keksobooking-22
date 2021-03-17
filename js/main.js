@@ -13,10 +13,11 @@ filtreRooms(document.querySelectorAll('#capacity option'), 1);
 createFetch()
   .then((offers) => {
     const render = mapModule(offers);
-    setFilterAction(render);
+    setFilterAction(render, offers);
     render()
   })
   .catch(() => {
     showAlert('Ошибка получения данных');
   });
 
+// запутался тут

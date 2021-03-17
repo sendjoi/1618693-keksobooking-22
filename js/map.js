@@ -1,20 +1,9 @@
 import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
-
+import {setFilterAction} from './filters.js';
 
 let map = null;
-
-const appFilters = function (offers, filters) {
-  let filtredOffers = [...offers];
-  filters.forEach((filter) => {
-    filtredOffers = offers.filter(({offer}) => offer[filter.key] === filter.value)
-  })
-
-  const OFFER_COUNT = 10;
-  filtredOffers.slice(0, OFFER_COUNT);
-  return filtredOffers;
-}
 
 const mapStart = function () {
 
@@ -63,7 +52,12 @@ const mapStart = function () {
 }
 
 
+
 const drawMap = function (allOffers) {
+  const OFFER_COUNT = 10;
+  allOffers = allOffers.slice(0, OFFER_COUNT);
+
+
   map.eachLayer((layer) => {
     if (layer.removable) {
       map.removeLayer(layer);
@@ -103,10 +97,13 @@ const drawMap = function (allOffers) {
 
 const mapModule = function (offers) {
   mapStart();
-  const render = function(filters = []) {
-    drawMap(appFilters(offers, filters));
+  const render = function() {
+    drawMap(setFilterAction(render, offers));
   };
   return render;
 };
 
 export {mapModule};
+
+
+//запутался тут

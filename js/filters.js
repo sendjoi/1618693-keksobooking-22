@@ -1,5 +1,7 @@
 const setFilterAction = function (callback, offers) {
 
+
+
   const typeSelect = document.querySelector('#housing-type');
 
   const priceSelect = document.querySelector('#housing-price');
@@ -23,9 +25,10 @@ const setFilterAction = function (callback, offers) {
 
   const offerForm = document.querySelector('.map__filters');
 
-  const typeFilter = function  (offer)  {
+  const typeFilter = function  (offerInput)  {
     //'any' ???
-    return offer.type === typeSelect.value;
+    return offerInput.offer.type === typeSelect.value;
+
   }
 
   const priceFilter = function (offer) {
@@ -40,7 +43,9 @@ const setFilterAction = function (callback, offers) {
 
   const roomsFilter = function  (offer)  {
     //'any' ???
+
     return offer.rooms == roomsSelect.value;
+
   }
 
   const guestsFilter = function  (offer)  {
@@ -73,10 +78,11 @@ const setFilterAction = function (callback, offers) {
   }
 
   offerForm.addEventListener('change', () => {
-    const result = [priceFilter, typeFilter, roomsFilter, guestsFilter, wifiFilter, dishwasherFilter, parkingFilter, washerFilter, elevatorFilter,conditionerFilter].reduce((customFilter) => offers.filter(customFilter), offers)
-    callback(result)
+    const result = [typeFilter].reduce((tailOffer, customFilter) => tailOffer.filter(customFilter), offers);
+
+    callback(result);
   })
 }
-// tailOffers???
+//wifiFilter, dishwasherFilter, parkingFilter, washerFilter, elevatorFilter,conditionerFilter, , roomsFilter, guestsFilter, priceFilter
 export {setFilterAction};
 

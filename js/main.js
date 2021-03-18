@@ -14,7 +14,9 @@ createFetch()
   .then((offers) => {
     const render = mapModule(offers);
     setFilterAction(render, offers);
-    render()
+
+    render();
+
   })
   .catch(() => {
     showAlert('Ошибка получения данных');

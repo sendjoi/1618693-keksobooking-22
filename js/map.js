@@ -1,7 +1,6 @@
 import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
-import {setFilterAction} from './filters.js';
 
 let map = null;
 
@@ -46,12 +45,7 @@ const mapStart = function () {
   mainPinMarker.on('moveend', (evt) => {
     putAddressinInput(normalizeAddress(evt.target.getLatLng()));
   });
-
-
-
 }
-
-
 
 const drawMap = function (allOffers) {
   const OFFER_COUNT = 10;
@@ -94,16 +88,24 @@ const drawMap = function (allOffers) {
   })
 }
 
-
 const mapModule = function (offers) {
   mapStart();
   const render = function() {
-    drawMap(setFilterAction(render, offers));
+    drawMap(offers);
   };
   return render;
 };
 
 export {mapModule};
-
-
 //запутался тут
+
+/*
+const mapModule = function (offers) {
+  mapStart();
+  const render = function(filters = []) {
+    drawMap(appFilters(offers, filters));
+  };
+  return render;
+};
+
+*/

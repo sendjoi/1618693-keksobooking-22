@@ -1,7 +1,22 @@
+'use strict'
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const offerTitleInput = document.querySelector('#title');
 
+const Minpricemap = {
+  palace: 10000,
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+}
+
+const Roomsmap = {
+  1: ['none','none','block', 'none'],
+  2: ['none','block','block','none'],
+  3: ['block','block','block','none'],
+  100: ['none','none','none','block'],
+}
+
+const offerTitleInput = document.querySelector('#title');
 
 offerTitleInput.addEventListener('invalid', () => {
 
@@ -27,17 +42,10 @@ offerTitleInput.addEventListener('input', () => {
 
 const price = document.querySelector('#price');
 
-const minPriceMap = {
-  palace: 10000,
-  flat: 1000,
-  house: 5000,
-  bungalow: 0,
-}
-
 const housingType = document.querySelector('#type');
 
 housingType.addEventListener('change', (event) => {
-  price.value = minPriceMap[event.target.value]
+  price.placeholder = Minpricemap[event.target.value];
 })
 
 const offerPriceField = document.querySelector('#price');
@@ -49,8 +57,7 @@ const minPriceValidation = (minPrice) => {
 offerPriceField.addEventListener('input', () => {
   const price = offerPriceField.value;
 
-
-  const MIN_PRICE = minPriceMap[housingType.value];
+  const MIN_PRICE = Minpricemap[housingType.value];
 
   offerPriceField.min = MIN_PRICE;
   if (price < MIN_PRICE) {
@@ -58,11 +65,8 @@ offerPriceField.addEventListener('input', () => {
   } else {
     offerPriceField.setCustomValidity('');
   }
-
   offerPriceField.reportValidity();
-
 })
-
 
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
@@ -77,30 +81,22 @@ timeOut.addEventListener('change', () => {
 
 const offerRoomsInput = document.querySelector('#room_number');
 
-const RoomsMap = {
-  1: ['none','none','block', 'none'],
-  2: ['none','block','block','none'],
-  3: ['block','block','block','none'],
-  100: ['none','none','none','block'],
-}
-
 const filtreRooms = function (roomsList, selectedValue) {
   const roomsValue = document.querySelector('#capacity');
   roomsValue.value = selectedValue;
-  if (selectedValue === '100') {roomsValue.value = '0'}
+  if (selectedValue === '100') {
+    roomsValue.value = '0'
+  }
   roomsList.forEach((element, index) => {
-    element.style.display= RoomsMap[selectedValue][index];
+    element.style.display= Roomsmap[selectedValue][index];
   })
 }
 
 const roomsOptions = document.querySelectorAll('#capacity option');
 
-
 offerRoomsInput.addEventListener('input', (evt) => {
   filtreRooms(roomsOptions, evt.target.value);
 })
-
-
 
 export {filtreRooms};
 

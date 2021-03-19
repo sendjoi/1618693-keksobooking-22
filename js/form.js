@@ -1,7 +1,10 @@
+'use strict'
 import {setSubmit} from './create-fetch.js';
 import {getSuccessMessage, getErrorMessage} from './alert.js';
 
 const addressInput = document.querySelector('#address');
+
+addressInput.disabled = true;
 
 const putAddressinInput = function (coordinates) {
   addressInput.value = coordinates;

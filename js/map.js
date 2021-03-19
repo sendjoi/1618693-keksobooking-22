@@ -1,6 +1,9 @@
+'use strict'
 import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
+
+const OFFER_COUNT = 10;
 
 let map = null;
 
@@ -48,7 +51,7 @@ const mapStart = function () {
 }
 
 const drawMap = function (allOffers) {
-  const OFFER_COUNT = 10;
+
   allOffers = allOffers.slice(0, OFFER_COUNT);
 
 
@@ -88,24 +91,14 @@ const drawMap = function (allOffers) {
   })
 }
 
-const mapModule = function (offers) {
+const mapModule = function () {
   mapStart();
-  const render = function() {
+
+  const render = function(offers) {
     drawMap(offers);
   };
   return render;
 };
 
 export {mapModule};
-//запутался тут
 
-/*
-const mapModule = function (offers) {
-  mapStart();
-  const render = function(filters = []) {
-    drawMap(appFilters(offers, filters));
-  };
-  return render;
-};
-
-*/

@@ -1,9 +1,8 @@
+'use strict'
 const onClickOk = function (element) {
   element.addEventListener('click' , () => {element.remove();})
   element.removeEventListener('click' , () => {element.remove();})
 }
-
-
 
 const getErrorMessage = function() {
   const mainForm = document.querySelector('main');
@@ -28,8 +27,6 @@ const getErrorMessage = function() {
   onClickOk(errorElement);
   onClickOk(closeElement);
 }
-
-
 
 const getSuccessMessage = function() {
   const mainForm = document.querySelector('main');

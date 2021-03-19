@@ -1,6 +1,7 @@
+'use strict'
+import {debounce} from './util.js';
+
 const setFilterAction = function (callback, offers) {
-
-
 
   const typeSelect = document.querySelector('#housing-type');
 
@@ -10,79 +11,60 @@ const setFilterAction = function (callback, offers) {
 
   const guestsSelect = document.querySelector('#housing-guests');
 
-  const wifiSelected = document.querySelector('.map__feature--wifi');
-
-  const dishwasherSelected = document.querySelector('.map__feature--dishwasher');
-
-  const parkingSelected = document.querySelector('.map__feature--parking');
-
-  const washerSelected = document.querySelector('.map__feature--washer');
-
-  const elevatorSelected = document.querySelector('.map__feature--elevator');
-
-  const conditionerSelected = document.querySelector('.map__feature--conditioner');
-
+  const housingFeatures = document.querySelector('#housing-features');
 
   const offerForm = document.querySelector('.map__filters');
 
   const typeFilter = function  (offerInput)  {
-    //'any' ???
-    return offerInput.offer.type === typeSelect.value;
-
-  }
-
-  const priceFilter = function (offer) {
-    const PriceMap = {
-      'any': true,
-      'low': offer.price < 10000,
-      'high': offer.price > 50000,
-      'middle':  offer.price < 50000 && offer.price > 10000,
+    if (typeSelect.value === 'any') {
+      return true;
     }
-    return PriceMap[priceSelect.value]
+    return offerInput.offer.type === typeSelect.value;
   }
 
-  const roomsFilter = function  (offer)  {
-    //'any' ???
-
-    return offer.rooms == roomsSelect.value;
-
+  const priceFilter = function (offerInput) {
+    const Pricemap = {
+      'any': true,
+      'low': offerInput.offer.price < 10000,
+      'high': offerInput.offer.price > 50000,
+      'middle':  offerInput.offer.price < 50000 && offerInput.offer.price > 10000,
+    }
+    if (priceSelect.value === 'any') {
+      return true;
+    }
+    return Pricemap[priceSelect.value]
   }
 
-  const guestsFilter = function  (offer)  {
-    //'any' ???
-    return offer.guests0 == guestsSelect.value;
+  const roomsFilter = function  (offerInput)  {
+    if (roomsSelect.value === 'any') {
+      return true;
+    }
+    return offerInput.offer.rooms === Number(roomsSelect.value);
   }
 
-  const wifiFilter = function (offer) {
-    offer.features.indexOf('wifi') === wifiSelected.checked
+  const guestsFilter = function  (offerInput)  {
+    if (guestsSelect.value === 'any') {
+      return true;
+    }
+    return offerInput.offer.guests === Number(guestsSelect.value);
   }
 
-  const dishwasherFilter = function (offer) {
-    offer.features.indexOf('wifi') === dishwasherSelected.checked
-  }
+  const filterFeatures = (offer) => {
+    const checkedFeatures = housingFeatures.querySelectorAll('input:checked');
 
-  const parkingFilter = function (offer) {
-    offer.features.indexOf('parking') === parkingSelected.checked
-  }
+    return [].every.call(checkedFeatures, (element) => {
+      return offer.offer.features.includes(element.value);
+    });
+  };
 
-  const washerFilter = function (offer) {
-    offer.features.indexOf('washer') === washerSelected.checked
-  }
-
-  const elevatorFilter = function (offer) {
-    offer.features.indexOf('elevator') === elevatorSelected.checked
-  }
-
-  const conditionerFilter = function (offer) {
-    offer.features.indexOf('conditioner') === conditionerSelected.checked
-  }
-
-  offerForm.addEventListener('change', () => {
-    const result = [typeFilter].reduce((tailOffer, customFilter) => tailOffer.filter(customFilter), offers);
-
+  const returnedFunction = debounce(function() {
+    const result = [typeFilter, priceFilter, roomsFilter, guestsFilter, filterFeatures].reduce((tailOffer, customFilter) => tailOffer.filter(customFilter), offers);
     callback(result);
-  })
-}
-//wifiFilter, dishwasherFilter, parkingFilter, washerFilter, elevatorFilter,conditionerFilter, , roomsFilter, guestsFilter, priceFilter
-export {setFilterAction};
+  }, 500)
 
+  offerForm.addEventListener('change', returnedFunction)
+
+  callback(offers);
+}
+
+export {setFilterAction};

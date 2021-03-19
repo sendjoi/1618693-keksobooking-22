@@ -1,3 +1,4 @@
+'use strict'
 import './form.js';
 import './validation.js'
 import {filtreRooms} from './validation.js';
@@ -12,14 +13,11 @@ filtreRooms(document.querySelectorAll('#capacity option'), 1);
 
 createFetch()
   .then((offers) => {
-    const render = mapModule(offers);
+    const render = mapModule();
     setFilterAction(render, offers);
-
-    render();
-
   })
   .catch(() => {
     showAlert('Ошибка получения данных');
   });
 
-// запутался тут
+

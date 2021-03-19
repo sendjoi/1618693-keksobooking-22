@@ -1,6 +1,7 @@
+'use strict'
 import {fillPhotos} from './util.js';
 
-const placementMap = {
+const Placementmap = {
   palace: 'Дворец',
   flat: 'Квартира',
   house: 'Дом',
@@ -19,7 +20,7 @@ const addingOffers = (point) => {
   cardElement.querySelector('.popup__text--address').textContent = point.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = `${point.offer.price}₽/ночь`;
 
-  cardElement.querySelector('.popup__type').textContent = placementMap[point.offer.type];
+  cardElement.querySelector('.popup__type').textContent = Placementmap[point.offer.type];
 
   cardElement.querySelector('.popup__text--capacity').textContent = `${point.offer.rooms} комнаты для ${point.offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${point.offer.checkin}, выезд до ${point.offer.checkout}`;
@@ -32,7 +33,6 @@ const addingOffers = (point) => {
   cardElement.querySelector('.popup__avatar').src = point.author.avatar;
 
   return cardElement;
-
 };
 
 export {addingOffers};

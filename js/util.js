@@ -1,22 +1,4 @@
-// Функция рандомного числа
-const  getRandomNumber =  function (min, max, numberLength) {
-  return Number((Math.random() * (max - min) + min).toFixed(numberLength));
-};
-
-// Функция рандомного элемента из массива
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomNumber(0, elements.length -1, 0)];
-};
-
-// Функция получения рандомного массива из массива
-const getRandomArray = (elements) => {
-  const features = []
-  for (let i= 0; i < getRandomNumber(0, elements.length,0); i++) {
-    features.push(elements[i])
-  }
-  return features;
-};
-// Функция генерации дурацких фото
+'use strict'
 const fillPhotos = function (photosBlock, photosObjArray) {
   const photoTemplate = photosBlock.querySelector('.popup__photo');
   photosObjArray.forEach((photosSrc) => {
@@ -78,15 +60,39 @@ const getDisablePage = function () {
   [...textArea].forEach((element) => {
     element.disabled = true;
   });
-
 }
 
 const normalizeAddress = function (address) {
   return address.lat.toFixed(5) + ', ' + address.lng.toFixed(5);
 }
 
+function debounce (func, wait, immediate) {
+  let timeout;
 
-export {getRandomNumber, getRandomArrayElement, getRandomArray, fillPhotos, getAblePage, getDisablePage, normalizeAddress};
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
+
+    const later = function() {
+      timeout = null;
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
+
+    const callNow = immediate && !timeout;
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+
+    if (callNow) {
+      func.apply(context, args);
+    }
+  };
+}
+
+export {fillPhotos, getAblePage, getDisablePage, normalizeAddress, debounce};
 
 
 

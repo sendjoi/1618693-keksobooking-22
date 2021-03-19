@@ -1,20 +1,11 @@
+'use strict'
 import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
 
+const OFFER_COUNT = 10;
 
 let map = null;
-
-const appFilters = function (offers, filters) {
-  let filtredOffers = [...offers];
-  filters.forEach((filter) => {
-    filtredOffers = offers.filter(({offer}) => offer[filter.key] === filter.value)
-  })
-
-  const OFFER_COUNT = 10;
-  filtredOffers.slice(0, OFFER_COUNT);
-  return filtredOffers;
-}
 
 const mapStart = function () {
 
@@ -57,13 +48,13 @@ const mapStart = function () {
   mainPinMarker.on('moveend', (evt) => {
     putAddressinInput(normalizeAddress(evt.target.getLatLng()));
   });
-
-
-
 }
 
-
 const drawMap = function (allOffers) {
+
+  allOffers = allOffers.slice(0, OFFER_COUNT);
+
+
   map.eachLayer((layer) => {
     if (layer.removable) {
       map.removeLayer(layer);
@@ -100,13 +91,14 @@ const drawMap = function (allOffers) {
   })
 }
 
-
-const mapModule = function (offers) {
+const mapModule = function () {
   mapStart();
-  const render = function(filters = []) {
-    drawMap(appFilters(offers, filters));
+
+  const render = function(offers) {
+    drawMap(offers);
   };
   return render;
 };
 
 export {mapModule};
+

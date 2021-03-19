@@ -1,3 +1,4 @@
+'use strict'
 const createFetch = () => {
   return fetch (
     'https://22.javascript.pages.academy/keksobooking/data',

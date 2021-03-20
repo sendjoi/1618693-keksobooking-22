@@ -3,8 +3,6 @@ import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
 
-const OFFER_COUNT = 10;
-
 let map = null;
 
 const mapStart = function () {
@@ -52,7 +50,7 @@ const mapStart = function () {
 
 const drawMap = function (allOffers) {
 
-  allOffers = allOffers.slice(0, OFFER_COUNT);
+
 
 
   map.eachLayer((layer) => {

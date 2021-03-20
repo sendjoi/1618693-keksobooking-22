@@ -1,6 +1,8 @@
 'use strict'
 import {debounce} from './util.js';
 
+const OFFER_COUNT = 10;
+
 const setFilterAction = function (callback, offers) {
 
   const typeSelect = document.querySelector('#housing-type');
@@ -58,7 +60,8 @@ const setFilterAction = function (callback, offers) {
   };
 
   const returnedFunction = debounce(function() {
-    const result = [typeFilter, priceFilter, roomsFilter, guestsFilter, filterFeatures].reduce((tailOffer, customFilter) => tailOffer.filter(customFilter), offers);
+    const result = [typeFilter, priceFilter, roomsFilter, guestsFilter, filterFeatures].reduce((tailOffer, customFilter) => tailOffer.filter(customFilter), offers).slice(0, OFFER_COUNT);
+
     callback(result);
   }, 500)
 

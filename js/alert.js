@@ -1,68 +1,61 @@
 'use strict'
-const onClickOk = function (element) {
-  element.addEventListener('click' , () => {element.remove();})
-  element.removeEventListener('click' , () => {element.remove();})
+import {mainMarkerReset} from './map.js';
+import {validationInit} from './validation.js';
+const mainForm = document.querySelector('main');
+const templateError = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+const templateSuccess = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+const escapeKeyName = 'Escape';
+const escKeyName = 'Esc';
+
+const setClickHandler = (element) => {
+  element.addEventListener('click' , () => {
+    element.remove();
+  })
+  element.removeEventListener('click' , () => {
+    element.remove();
+  })
+}
+const showErrorMessage = () => {
+  const errorMessage = templateError.cloneNode(true);
+  mainForm.append(errorMessage);
+
+  const onKeydown = (evt) => {
+    if (evt.key === (escapeKeyName || escKeyName)) {
+      document.removeEventListener('keydown', onKeydown)
+      errorMessage.remove();
+    }
+  }
+  document.addEventListener('keydown', onKeydown);
+  const errorMessageButton = errorMessage.querySelector('.error__button');
+  setClickHandler(errorMessage);
+  setClickHandler(errorMessageButton);
 }
 
-const getErrorMessage = function() {
-  const mainForm = document.querySelector('main');
-  const templateError = document.querySelector('#error')
-    .content
-    .querySelector('.error');
-
-  const errorElement = templateError.cloneNode(true);
-
-  mainForm.append(errorElement);
+const getSuccessMessage = () => {
+  const successMessage = templateSuccess.cloneNode(true);
+  mainForm.append(successMessage);
 
   const onKeydown = (evt) => {
     if (evt.key === ('Escape' || 'Esc')) {
       document.removeEventListener('keydown', onKeydown)
-      errorElement.remove();
-    }
-  }
-
-  document.addEventListener('keydown', onKeydown);
-
-  const closeElement = errorElement.querySelector('.error__button');
-  onClickOk(errorElement);
-  onClickOk(closeElement);
-}
-
-const getSuccessMessage = function() {
-  const mainForm = document.querySelector('main');
-
-  const templateSuccess = document.querySelector('#success')
-    .content
-    .querySelector('.success');
-
-  const successElement = templateSuccess.cloneNode(true);
-
-  mainForm.append(successElement);
-
-  const onKeydown = (evt) => {
-    if (evt.key === ('Escape' || 'Esc')) {
-      document.removeEventListener('keydown', onKeydown)
-      successElement.remove();
+      successMessage.remove();
     }
   }
   document.addEventListener('keydown', onKeydown);
-
-  onClickOk(successElement);
-
+  setClickHandler(successMessage);
   document.querySelector('.ad-form').reset();
+  validationInit();
+  mainMarkerReset();
 }
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
+  alertContainer.classList.add('.custom__error_message');
 
   alertContainer.textContent = message;
 
@@ -72,5 +65,4 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, 3000);
 }
-
-export {getSuccessMessage, getErrorMessage, showAlert}
+export {getSuccessMessage, showErrorMessage, showAlert}

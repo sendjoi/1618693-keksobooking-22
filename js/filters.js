@@ -1,73 +1,56 @@
 'use strict'
 import {debounce} from './util.js';
-
 const OFFER_COUNT = 10;
-
-const setFilterAction = function (callback, offers) {
-
-  const typeSelect = document.querySelector('#housing-type');
-
-  const priceSelect = document.querySelector('#housing-price');
-
-  const roomsSelect = document.querySelector('#housing-rooms');
-
-  const guestsSelect = document.querySelector('#housing-guests');
-
-  const housingFeatures = document.querySelector('#housing-features');
-
-  const offerForm = document.querySelector('.map__filters');
-
-  const typeFilter = function  (offerInput)  {
+const UP_LIMIT = 10000;
+const DOWN_LIMIT = 50000;
+const ANY = 'any';
+const LOW = 'low';
+const MID = 'middle';
+const HIGH = 'high';
+const typeSelect = document.querySelector('#housing-type');
+const priceSelect = document.querySelector('#housing-price');
+const roomsSelect = document.querySelector('#housing-rooms');
+const guestsSelect = document.querySelector('#housing-guests');
+const housingFeatures = document.querySelector('#housing-features');
+const filterForm = document.querySelector('.map__filters');
+const PriceMap = {
+  [ANY]: () => true,
+  [LOW]: (offerInput) => offerInput.offer.price < UP_LIMIT,
+  [MID]: (offerInput) => offerInput.offer.price < DOWN_LIMIT && offerInput.offer.price > UP_LIMIT,
+  [HIGH]: (offerInput) => offerInput.offer.price > DOWN_LIMIT,
+}
+const setFilterAction = (render, offers) => {
+  const typeFilter = (offerInput) => {
     if (typeSelect.value === 'any') {
       return true;
     }
     return offerInput.offer.type === typeSelect.value;
   }
-
-  const priceFilter = function (offerInput) {
-    const Pricemap = {
-      'any': true,
-      'low': offerInput.offer.price < 10000,
-      'high': offerInput.offer.price > 50000,
-      'middle':  offerInput.offer.price < 50000 && offerInput.offer.price > 10000,
-    }
-    if (priceSelect.value === 'any') {
-      return true;
-    }
-    return Pricemap[priceSelect.value]
+  const priceFilter = (offerInput) => {
+    const priceFilterFlag = PriceMap[priceSelect.value];
+    return priceFilterFlag(offerInput);
   }
-
-  const roomsFilter = function  (offerInput)  {
+  const roomsFilter = (offerInput) => {
     if (roomsSelect.value === 'any') {
       return true;
     }
     return offerInput.offer.rooms === Number(roomsSelect.value);
   }
-
-  const guestsFilter = function  (offerInput)  {
+  const guestsFilter = (offerInput) => {
     if (guestsSelect.value === 'any') {
       return true;
     }
     return offerInput.offer.guests === Number(guestsSelect.value);
   }
-
   const filterFeatures = (offer) => {
     const checkedFeatures = housingFeatures.querySelectorAll('input:checked');
-
-    return [].every.call(checkedFeatures, (element) => {
-      return offer.offer.features.includes(element.value);
-    });
+    return [...checkedFeatures].every((feature) => offer.offer.features.includes(feature.value));
   };
-
-  const returnedFunction = debounce(function() {
-    const result = [typeFilter, priceFilter, roomsFilter, guestsFilter, filterFeatures].reduce((tailOffer, customFilter) => tailOffer.filter(customFilter), offers).slice(0, OFFER_COUNT);
-
-    callback(result);
-  }, 500)
-
-  offerForm.addEventListener('change', returnedFunction)
-
-  callback(offers);
+  const returnedFunction = debounce(() => {
+    const result = [typeFilter, priceFilter, roomsFilter, guestsFilter, filterFeatures].reduce((tailOffers, customFilter) => tailOffers.filter(customFilter), offers).slice(0, OFFER_COUNT);
+    render(result);
+  }, 500);
+  filterForm.addEventListener('change', returnedFunction);
+  render(offers);
 }
-
 export {setFilterAction};

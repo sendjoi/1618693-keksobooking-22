@@ -1,25 +1,20 @@
-'use strict'
-import {setSubmit} from './create-fetch.js';
-import {getSuccessMessage, getErrorMessage} from './alert.js';
-
+'use strict';
+import {getSuccessMessage, showErrorMessage} from './alert.js';
+import {serverInteraction} from './server-app.js';
+const sendingAddress = 'https://22.javascript.pages.academy/keksobooking';
 const addressInput = document.querySelector('#address');
-
+const offerForm = document.querySelector('.ad-form');
 addressInput.disabled = true;
-
-const putAddressinInput = function (coordinates) {
+const putAddressinInput = (coordinates) => {
   addressInput.value = coordinates;
 }
-
-const offerForm = document.querySelector('.ad-form');
-
 offerForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  setSubmit(evt.target).then(() => {
+  serverInteraction(sendingAddress, 'POST', evt.target).then(() => {
     getSuccessMessage();
   })
     .catch(() => {
-      getErrorMessage();
+      showErrorMessage();
     })
 })
-
 export {putAddressinInput};

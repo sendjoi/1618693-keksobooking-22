@@ -952,6 +952,18 @@ fieldset {
   font-weight: 700;
 }
 
+.custom__error_message {
+  z-Index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 3px;
+  font-size : 30px;
+  text-align: center;
+  background-color: red;
+}
+
 .success__message::before,
 .error__message::before {
   content: "";

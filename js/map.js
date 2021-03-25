@@ -2,53 +2,70 @@
 import {getAblePage, normalizeAddress} from './util.js';
 import  {addingOffers} from './create-offers.js';
 import {putAddressinInput} from './form.js';
+import {MAP_HTTP, MAP_ATT, TOKIO_CENTR, MAP_ZOOM, MAP_MAIN_PIN_SIZE, MAP_MAIN_PIN_ANCHOR_CENTER, MAP_PIN_SIZE, MAP_PIN_ANCHOR_CENTER} from './config.js';
 
 let map = null;
 let mainPinMarker;
-const mapStart = () => {
+let mainPinIcon;
+const mapCreate = () => {
   /* global L:readonly */
   map = L.map('map-canvas')
     .on('load', () => {
       getAblePage();
     })
-    .setView({
-      lat: 35.6895000,
-      lng: 139.6917100,
-    }, 9.4);
+    .setView(TOKIO_CENTR, MAP_ZOOM);
   L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    MAP_HTTP,
     {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>',
+      attribution: MAP_ATT,
     },
   ).addTo(map);
-  const mainPinIcon = L.icon({
+}
+
+const mapReset = () => {
+  map.eachLayer((layer) => {
+    if (layer.removable) {
+      map.removeLayer(layer);
+    }
+  })
+  map.setView(TOKIO_CENTR, MAP_ZOOM);
+  L.tileLayer(
+    MAP_HTTP,
+    {
+      attribution: MAP_ATT,
+    },
+  ).addTo(map);
+}
+
+const mainPinReset = () => {
+  map.eachLayer((layer) => {
+    if (layer.mainPin) {
+      map.removeLayer(layer);
+    }
+  })
+  mainPinCreate();
+}
+
+const mainPinCreate = () => {
+  mainPinIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
+    iconSize: MAP_MAIN_PIN_SIZE,
+    iconAnchor: MAP_MAIN_PIN_ANCHOR_CENTER,
   });
   mainPinMarker = L.marker(
-    {
-      lat: 35.6895000,
-      lng: 139.6917100,
-    },
+    TOKIO_CENTR,
     {
       draggable: true,
       icon: mainPinIcon,
     },
   );
+  mainPinMarker.mainPin = true;
   mainPinMarker.addTo(map);
   mainPinMarker.on('moveend', (evt) => {
     putAddressinInput(normalizeAddress(evt.target.getLatLng()));
   });
 }
-const mainMarkerReset = () => {
-  mainPinMarker.latLng(35.6895,139.69171);
-  console.log(mainPinMarker);
-  // mainPinMarker._latlng.lat = 35.6895
-  //mainPinMarker._latlng.lng = 139.69171
-  //mainPinMarker.removeLayer();
-  //mainPinMarker.addTo(map);
-};
+
 const drawMap = (allOffers) => {
   map.eachLayer((layer) => {
     if (layer.removable) {
@@ -58,8 +75,8 @@ const drawMap = (allOffers) => {
   allOffers.forEach((point) => {
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+      iconSize: MAP_PIN_SIZE,
+      iconAnchor: MAP_PIN_ANCHOR_CENTER,
     });
     const marker = L.marker(
       {
@@ -81,12 +98,14 @@ const drawMap = (allOffers) => {
       );
   })
 }
-const mapModule = () => {
-  mapStart();
-  const render = (offers) => {
-    drawMap(offers);
-  };
-  return render;
-};
-export {mapModule, mainMarkerReset};
+const mapRender = (offers) => {
+  drawMap(offers);
+}
+
+const mapInit = () => {
+  mapCreate();
+  mainPinCreate();
+}
+
+export {mapInit, mapRender, mainPinCreate, mapReset, mainPinReset};
 

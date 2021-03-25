@@ -23,47 +23,6 @@ const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const roomsValue = document.querySelector('#capacity');
 
-offerTitleInput.addEventListener('invalid', () => {
-  if (offerTitleInput.validity.valueMissing) {
-    offerTitleInput.setCustomValidity('Обязательное поле');
-  } else {
-    offerTitleInput.setCustomValidity('');
-  }
-});
-offerTitleInput.addEventListener('input', () => {
-  const valueLength = offerTitleInput.value.length;
-  if (valueLength < MIN_TITLE_LENGTH) {
-    offerTitleInput.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) +' симв.');
-  } else if (valueLength > MAX_TITLE_LENGTH) {
-    offerTitleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) +' симв.');
-  } else {
-    offerTitleInput.setCustomValidity('');
-  }
-  offerTitleInput.reportValidity();
-});
-housingType.addEventListener('change', (event) => {
-  offerPriceField.placeholder = MinpriceMap[event.target.value];
-})
-const minPriceValidation = (minPrice) => {
-  offerPriceField.setCustomValidity(`Минимальная цена ${minPrice}`);
-};
-offerPriceField.addEventListener('input', () => {
-  const price = offerPriceField.value;
-  const MIN_PRICE = MinpriceMap[housingType.value];
-  offerPriceField.min = MIN_PRICE;
-  if (price < MIN_PRICE) {
-    minPriceValidation(MIN_PRICE);
-  } else {
-    offerPriceField.setCustomValidity('');
-  }
-  offerPriceField.reportValidity();
-})
-timeIn.addEventListener('change', () => {
-  timeOut.selectedIndex = timeIn.selectedIndex;
-})
-timeOut.addEventListener('change', () => {
-  timeIn.selectedIndex = timeOut.selectedIndex;
-})
 const filtreRooms = (roomsList, selectedValue) => {
   roomsValue.value = selectedValue;
   if (selectedValue === '100') {
@@ -73,12 +32,57 @@ const filtreRooms = (roomsList, selectedValue) => {
     element.style.display= RoomsMap[selectedValue][index];
   })
 }
-offerRoomsInput.addEventListener('input', (evt) => {
-  filtreRooms(roomsOptions, evt.target.value);
-})
 const validationInit = () => {
   filtreRooms(document.querySelectorAll('#capacity option'), 1);
 }
-export {validationInit};
+
+const getValidation = () => {
+  offerTitleInput.addEventListener('invalid', () => {
+    if (offerTitleInput.validity.valueMissing) {
+      offerTitleInput.setCustomValidity('Обязательное поле');
+    } else {
+      offerTitleInput.setCustomValidity('');
+    }
+  });
+  offerTitleInput.addEventListener('input', () => {
+    const valueLength = offerTitleInput.value.length;
+    if (valueLength < MIN_TITLE_LENGTH) {
+      offerTitleInput.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) +' симв.');
+    } else if (valueLength > MAX_TITLE_LENGTH) {
+      offerTitleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) +' симв.');
+    } else {
+      offerTitleInput.setCustomValidity('');
+    }
+    offerTitleInput.reportValidity();
+  });
+  housingType.addEventListener('change', (event) => {
+    offerPriceField.placeholder = MinpriceMap[event.target.value];
+  })
+  const minPriceValidation = (minPrice) => {
+    offerPriceField.setCustomValidity(`Минимальная цена ${minPrice}`);
+  };
+  offerPriceField.addEventListener('input', () => {
+    const price = offerPriceField.value;
+    const MIN_PRICE = MinpriceMap[housingType.value];
+    offerPriceField.min = MIN_PRICE;
+    if (price < MIN_PRICE) {
+      minPriceValidation(MIN_PRICE);
+    } else {
+      offerPriceField.setCustomValidity('');
+    }
+    offerPriceField.reportValidity();
+  })
+  timeIn.addEventListener('change', () => {
+    timeOut.selectedIndex = timeIn.selectedIndex;
+  })
+  timeOut.addEventListener('change', () => {
+    timeIn.selectedIndex = timeOut.selectedIndex;
+  })
+  offerRoomsInput.addEventListener('input', (evt) => {
+    filtreRooms(roomsOptions, evt.target.value);
+  })
+  validationInit();
+}
+export {getValidation, validationInit};
 
 

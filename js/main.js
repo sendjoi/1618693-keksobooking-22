@@ -1,22 +1,29 @@
 'use strict'
-import './form.js';
-import './validation.js'
-import {validationInit} from './validation.js';
+import {DATA_ADDRESS} from './config.js';
+import {formInit} from './form.js';
+import {getValidation, validationInit} from './validation.js';
 import {getDisablePage} from './util.js';
-import {serverInteraction} from './server-app.js';
-import {mapModule} from './map.js';
-import {setFilterAction} from './filters.js';
+import {http} from './server-app.js';
+import {mapInit, mapRender, mapReset, mainPinReset} from './map.js';
+import {setFilterAction, filterReset} from './filters.js';
 import {showAlert} from './alert.js';
-const dataAddress = 'https://22.javascript.pages.academy/keksobooking/data';
+
+const appReset = () => {
+  const resetFunction =[filterReset, mapReset, mainPinReset, validationInit];
+  resetFunction.forEach((func) => func());
+}
 getDisablePage();
-validationInit();
-serverInteraction(dataAddress, 'GET')
+http(DATA_ADDRESS, 'GET')
   .then((offers) => {
-    const render = mapModule();
-    setFilterAction(render, offers);
+    mapInit();
+    formInit(appReset);
+    setFilterAction(mapRender, offers);
+
   })
   .catch(() => {
     showAlert('Ошибка получения данных');
   });
+getValidation();
+
 
 

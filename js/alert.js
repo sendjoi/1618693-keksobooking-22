@@ -1,6 +1,5 @@
 'use strict'
-import {mainMarkerReset} from './map.js';
-import {validationInit} from './validation.js';
+
 const mainForm = document.querySelector('main');
 const templateError = document.querySelector('#error')
   .content
@@ -36,7 +35,7 @@ const showErrorMessage = () => {
   setClickHandler(errorMessageButton);
 }
 
-const getSuccessMessage = () => {
+const getSuccessMessage = (mapReset) => {
   const successMessage = templateSuccess.cloneNode(true);
   mainForm.append(successMessage);
 
@@ -49,8 +48,7 @@ const getSuccessMessage = () => {
   document.addEventListener('keydown', onKeydown);
   setClickHandler(successMessage);
   document.querySelector('.ad-form').reset();
-  validationInit();
-  mainMarkerReset();
+  mapReset();
 }
 
 const showAlert = (message) => {

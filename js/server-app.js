@@ -1,12 +1,8 @@
 'use strict'
-const serverInteraction = (address, method, form) => {
-  let body;
-  if (form) {
-    body = new FormData(form);
-  }
+const http = (address, method = 'GET', form = null) => {
   return fetch(address, {
     method: method,
-    body,
+    body: form ? new FormData(form) : null,
   }).then((response) => {
     if (response.ok) {
       return response.json();
@@ -15,4 +11,4 @@ const serverInteraction = (address, method, form) => {
     }
   })
 }
-export {serverInteraction};
+export {http};

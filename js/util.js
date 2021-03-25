@@ -4,7 +4,7 @@ const filters = document.querySelector('.map__filters');
 const filter = document.querySelectorAll('select');
 const featuresFilters = document.querySelectorAll('#housing-features');
 const inputs = document.querySelectorAll('input');
-const textArea = document.querySelectorAll('textarea');
+const textArea = document.querySelector('textarea');
 const buttons = document.querySelectorAll('button');
 
 const fillPhotos = (photosBlock, photosObjArray) => {
@@ -45,56 +45,47 @@ const getRemoveSpaceBlock = (block, fieldData) => {
 const getAblePage = () => {
   form.classList.remove('ad-form--disabled');
   filters.classList.remove('map__filters--disabled');
-  [...filter].forEach((element) => {
-    element.disabled = false;
-  });
-  [...inputs].forEach((element) => {
-    element.disabled = false;
-  });
-  [...textArea].forEach((element) => {
-    element.disabled = false;
-  });
-  [...buttons].forEach((element) => {
-    element.disabled = false;
-  });
-  [...featuresFilters].forEach((element) => {
+  [...filter,
+    ...inputs,
+    textArea,
+    ...buttons,
+    ...featuresFilters,
+  ].forEach((element) => {
     element.disabled = false;
   });
 }
 const getDisablePage = () => {
   form.classList.add('ad-form--disabled');
   filters.classList.add('map__filters--disabled');
-  [...filter].forEach((element) => {
-    element.disabled = true;
-  });
-  [...inputs].forEach((element) => {
-    element.disabled = true;
-  });
-  [...textArea].forEach((element) => {
-    element.disabled = true;
-  });
-  [...buttons].forEach((element) => {
-    element.disabled = true;
-  });
-  [...featuresFilters].forEach((element) => {
+  [...filter,
+    ...inputs,
+    textArea,
+    ...buttons,
+    ...featuresFilters,
+  ].forEach((element) => {
     element.disabled = true;
   });
 }
 const normalizeAddress = (address) => {
   return address.lat.toFixed(5) + ', ' + address.lng.toFixed(5);
 }
-const debounce = (func, wait) => {
+const debounce = (func, wait, immediate) => {
   let timeout;
-  return function executedFunction()  {
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
+
     const later = () => {
       timeout = null;
-      func.apply(null);
+      if (!immediate) {
+        func.apply(context, args);
+      }
     };
-    const callNow = !timeout;
+    const callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
     if (callNow) {
-      func.apply(null);
+      func.apply(context, args);
     }
   };
 }

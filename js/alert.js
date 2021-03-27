@@ -14,8 +14,8 @@ const escKeyName = 'Esc';
 const setClickHandler = (element) => {
   element.addEventListener('click' , () => {
     element.remove();
+    element = null;
   })
-  element.removeEventListener('click')
 }
 
 const showErrorMessage = () => {

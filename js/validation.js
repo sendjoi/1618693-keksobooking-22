@@ -33,9 +33,11 @@ const filtreRooms = (roomsList, selectedValue) => {
   })
 }
 
-const validationInit = () => {
-  filtreRooms(document.querySelectorAll('#capacity option'), 1);
+const validationInit = (roomsOptions, number) => {
+  filtreRooms(roomsOptions, number);
+
 }
+
 
 const getValidation = () => {
   offerTitleInput.addEventListener('invalid', () => {
@@ -83,9 +85,9 @@ const getValidation = () => {
   offerRoomsInput.addEventListener('input', (evt) => {
     filtreRooms(roomsOptions, evt.target.value);
   })
-
-  validationInit();
+  offerPriceField.placeholder =  MinpriceMap.flat;
+  validationInit(document.querySelectorAll('#capacity option'), 1);
 }
-export {getValidation, validationInit};
+export {getValidation};
 
 

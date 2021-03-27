@@ -1,7 +1,7 @@
 'use strict'
 import {DATA_ADDRESS} from './config.js';
 import {formInit} from './form.js';
-import {getValidation, validationInit} from './validation.js';
+import {getValidation} from './validation.js';
 import {getDisablePage} from './util.js';
 import {http} from './server-app.js';
 import {mapInit, mapRender, resetMapPin} from './map.js';
@@ -9,7 +9,7 @@ import {setFilterAction, filterReset} from './filters.js';
 import {formReset, showAlert} from './alert.js';
 
 const appReset = () => {
-  const resetFunction =[filterReset, resetMapPin, validationInit, formReset];
+  const resetFunction =[filterReset, resetMapPin, getValidation, formReset];
   resetFunction.forEach((func) => func());
 }
 getDisablePage();

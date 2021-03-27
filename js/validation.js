@@ -7,6 +7,7 @@ const MinpriceMap = {
   house: 5000,
   bungalow: 0,
 };
+
 const RoomsMap = {
   '1': ['none','none','block', 'none'],
   '2': ['none','block','block','none'],
@@ -14,6 +15,7 @@ const RoomsMap = {
   '100': ['none','none','none','block'],
   'DEFAULT': [],
 };
+
 const offerTitleInput = document.querySelector('#title');
 const housingType = document.querySelector('#type');
 const offerPriceField = document.querySelector('#price');
@@ -31,15 +33,13 @@ const filtreRooms = (roomsList, selectedValue) => {
   roomsList.forEach((element, index) => {
     element.style.display= RoomsMap[selectedValue][index];
   })
-}
+};
 
-const validationInit = (roomsOptions, number) => {
+const validationReset = (number = 1) => {
   filtreRooms(roomsOptions, number);
+};
 
-}
-
-
-const getValidation = () => {
+const validationInit = () => {
   offerTitleInput.addEventListener('invalid', () => {
     if (offerTitleInput.validity.valueMissing) {
       offerTitleInput.setCustomValidity('Обязательное поле');
@@ -47,6 +47,7 @@ const getValidation = () => {
       offerTitleInput.setCustomValidity('');
     }
   });
+
   offerTitleInput.addEventListener('input', () => {
     const valueLength = offerTitleInput.value.length;
     if (valueLength < MIN_TITLE_LENGTH) {
@@ -58,6 +59,7 @@ const getValidation = () => {
     }
     offerTitleInput.reportValidity();
   });
+
   housingType.addEventListener('change', (event) => {
     offerPriceField.placeholder = MinpriceMap[event.target.value];
   })
@@ -65,6 +67,7 @@ const getValidation = () => {
   const minPriceValidation = (minPrice) => {
     offerPriceField.setCustomValidity(`Минимальная цена ${minPrice}`);
   };
+
   offerPriceField.addEventListener('input', () => {
     const price = offerPriceField.value;
     const MIN_PRICE = MinpriceMap[housingType.value];
@@ -76,18 +79,23 @@ const getValidation = () => {
     }
     offerPriceField.reportValidity();
   })
+
   timeIn.addEventListener('change', () => {
     timeOut.selectedIndex = timeIn.selectedIndex;
   })
+
   timeOut.addEventListener('change', () => {
     timeIn.selectedIndex = timeOut.selectedIndex;
   })
+
   offerRoomsInput.addEventListener('input', (evt) => {
     filtreRooms(roomsOptions, evt.target.value);
   })
+
   offerPriceField.placeholder =  MinpriceMap.flat;
-  validationInit(document.querySelectorAll('#capacity option'), 1);
-}
-export {getValidation};
+  validationReset();
+};
+
+export {validationReset, validationInit};
 
 

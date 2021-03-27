@@ -16,7 +16,7 @@ const setClickHandler = (element) => {
     element.remove();
     element = null;
   })
-}
+};
 
 const showErrorMessage = () => {
   const errorMessage = templateError.cloneNode(true);
@@ -27,12 +27,13 @@ const showErrorMessage = () => {
       document.removeEventListener('keydown', onKeydown)
       errorMessage.remove();
     }
-  }
+  };
+
   document.addEventListener('keydown', onKeydown);
   const errorMessageButton = errorMessage.querySelector('.error__button');
   setClickHandler(errorMessage);
   setClickHandler(errorMessageButton);
-}
+};
 
 const showSuccessMessage = () => {
   const successMessage = templateSuccess.cloneNode(true);
@@ -43,10 +44,10 @@ const showSuccessMessage = () => {
       document.removeEventListener('keydown', onKeydown)
       successMessage.remove();
     }
-  }
+  };
   document.addEventListener('keydown', onKeydown);
   setClickHandler(successMessage);
-}
+};
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -57,10 +58,10 @@ const showAlert = (message) => {
   setTimeout(() => {
     alertContainer.remove();
   }, 3000);
-}
+};
 
 const formReset = () => {
   document.querySelector('.ad-form').reset();
-}
+};
 
-export {showSuccessMessage, showErrorMessage, showAlert, formReset}
+export {showSuccessMessage, showErrorMessage, showAlert, formReset};

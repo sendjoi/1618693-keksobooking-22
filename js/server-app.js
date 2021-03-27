@@ -10,5 +10,6 @@ const http = (address, method = 'GET', form = null) => {
       throw new Error(`${response.status} ${response.statusText}`);
     }
   })
-}
+};
+
 export {http};

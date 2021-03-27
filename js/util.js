@@ -15,7 +15,7 @@ const fillPhotos = (photosBlock, photosObjArray) => {
     photosBlock.append(imgTemplate);
   })
   photoTemplate.remove();
-}
+};
 
 const fillFeatures = (featuresBlock, featuresArray) => {
   const FeaturesMap = {
@@ -37,13 +37,13 @@ const fillFeatures = (featuresBlock, featuresArray) => {
   } else {
     featuresBlock.remove();
   }
-}
+};
 
 const removeSpaceBlock = (block, fieldData) => {
   if (!fieldData) {
     block.remove();
   }
-}
+};
 
 const getAblePage = () => {
   form.classList.remove('ad-form--disabled');
@@ -56,7 +56,7 @@ const getAblePage = () => {
   ].forEach((element) => {
     element.disabled = false;
   });
-}
+};
 
 const getDisablePage = () => {
   form.classList.add('ad-form--disabled');
@@ -73,7 +73,7 @@ const getDisablePage = () => {
 
 const normalizeAddress = (address) => {
   return address.lat.toFixed(5) + ', ' + address.lng.toFixed(5);
-}
+};
 
 const debounce = (func, wait, immediate) => {
   let timeout;
@@ -94,8 +94,17 @@ const debounce = (func, wait, immediate) => {
       func.apply(context, args);
     }
   };
-}
-export {fillPhotos, getAblePage, getDisablePage, normalizeAddress, debounce, fillFeatures, removeSpaceBlock};
+};
+
+export {
+  fillPhotos,
+  getAblePage,
+  getDisablePage,
+  normalizeAddress,
+  debounce,
+  fillFeatures,
+  removeSpaceBlock
+};
 
 
 

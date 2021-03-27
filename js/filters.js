@@ -19,37 +19,50 @@ const PriceMap = {
   [LOW]: (offerInput) => offerInput.offer.price < UP_LIMIT,
   [MID]: (offerInput) => offerInput.offer.price < DOWN_LIMIT && offerInput.offer.price > UP_LIMIT,
   [HIGH]: (offerInput) => offerInput.offer.price > DOWN_LIMIT,
-}
+};
 
 let filterDataApply = null;
 
 const setFilterAction = (render, offers) => {
   const typeFilter = (offerInput) => {
     if (typeSelect.value === 'any') {
+
       return true;
     }
+
     return offerInput.offer.type === typeSelect.value;
-  }
+  };
+
   const priceFilter = (offerInput) => {
     const priceFilterFlag = PriceMap[priceSelect.value];
+
     return priceFilterFlag(offerInput);
-  }
+  };
+
   const roomsFilter = (offerInput) => {
     if (roomsSelect.value === 'any') {
+
       return true;
     }
+
     return offerInput.offer.rooms === Number(roomsSelect.value);
-  }
+  };
+
   const guestsFilter = (offerInput) => {
     if (guestsSelect.value === 'any') {
+
       return true;
     }
+
     return offerInput.offer.guests === Number(guestsSelect.value);
-  }
+  };
+
   const filterFeatures = (offer) => {
     const checkedFeatures = housingFeatures.querySelectorAll('input:checked');
+
     return [...checkedFeatures].every((feature) => offer.offer.features.includes(feature.value));
   };
+
   const filterData = debounce(() => {
     const result = [
       typeFilter,
@@ -64,7 +77,7 @@ const setFilterAction = (render, offers) => {
   filterDataApply = filterData;
   filterForm.addEventListener('change', filterData);
   render(offers);
-}
+};
 
 const filterReset = () => {
   typeSelect.value = 'any';
@@ -75,6 +88,6 @@ const filterReset = () => {
     feature.checked = false;
   })
   filterDataApply();
-}
+};
 
 export {setFilterAction, filterReset};

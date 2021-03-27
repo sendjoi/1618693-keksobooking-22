@@ -10,7 +10,7 @@ const PlacementMap = {
   house: 'Дом',
   bungalow: 'Бунгало',
   DEFAULT: 'Не установлено',
-}
+};
 
 const addingOffers = (point) => {
   const cardCopy = templateFragment.cloneNode(true);
@@ -29,5 +29,6 @@ const addingOffers = (point) => {
 
   return cardCopy;
 };
+
 export {addingOffers};
 

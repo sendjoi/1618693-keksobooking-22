@@ -9,7 +9,7 @@ const offerForm = document.querySelector('.ad-form');
 
 const putAddressinInput = (coordinates) => {
   addressInput.value = coordinates;
-}
+};
 
 const formInit = (appReset) => {
   offerForm.addEventListener('submit', (evt) => {
@@ -22,6 +22,6 @@ const formInit = (appReset) => {
         showErrorMessage();
       })
   })
-}
+};
 
 export {putAddressinInput, formInit};

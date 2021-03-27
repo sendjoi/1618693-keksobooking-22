@@ -7,6 +7,7 @@ import {MAP_HTTP, MAP_ATT, TOKIO_CENTR, MAP_ZOOM, MAP_MAIN_PIN_SIZE, MAP_MAIN_PI
 let map = null;
 let mainPinMarker;
 let mainPinIcon;
+
 const mapCreate = () => {
   /* global L:readonly */
   map = L.map('map-canvas')
@@ -20,7 +21,7 @@ const mapCreate = () => {
       attribution: MAP_ATT,
     },
   ).addTo(map);
-}
+};
 
 const mapReset = () => {
   map.eachLayer((layer) => {
@@ -35,7 +36,7 @@ const mapReset = () => {
       attribution: MAP_ATT,
     },
   ).addTo(map);
-}
+};
 
 const mainPinReset = () => {
   map.eachLayer((layer) => {
@@ -44,12 +45,12 @@ const mainPinReset = () => {
     }
   })
   mainPinCreate();
-}
+};
 
 const resetMapPin = () => {
   mapReset();
   mainPinReset();
-}
+};
 
 const mainPinCreate = () => {
   mainPinIcon = L.icon({
@@ -69,7 +70,7 @@ const mainPinCreate = () => {
   mainPinMarker.on('moveend', (evt) => {
     putAddressinInput(normalizeAddress(evt.target.getLatLng()));
   });
-}
+};
 
 const drawMap = (allOffers) => {
   map.eachLayer((layer) => {
@@ -103,14 +104,15 @@ const drawMap = (allOffers) => {
       );
   })
 }
+
 const mapRender = (offers) => {
   drawMap(offers);
-}
+};
 
 const mapInit = () => {
   mapCreate();
   mainPinCreate();
-}
+};
 
 export {mapInit, mapRender, mainPinCreate, resetMapPin};
 

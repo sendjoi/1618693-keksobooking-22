@@ -7,6 +7,14 @@ const inputs = document.querySelectorAll('input');
 const textArea = document.querySelector('textarea');
 const buttons = document.querySelectorAll('button');
 
+const formInputs = [
+  filter,
+  inputs,
+  textArea,
+  buttons,
+  featuresFilters,
+]
+
 const FeaturesMap = {
   'wifi': 'popup__feature--wifi',
   'dishwasher': 'popup__feature--dishwasher',
@@ -49,12 +57,7 @@ const removeSpaceBlock = (block, fieldData) => {
 const getAblePage = () => {
   form.classList.remove('ad-form--disabled');
   filters.classList.remove('map__filters--disabled');
-  [...filter,
-    ...inputs,
-    textArea,
-    ...buttons,
-    ...featuresFilters,
-  ].forEach((element) => {
+  formInputs.forEach((element) => {
     element.disabled = false;
   });
 };
@@ -62,12 +65,7 @@ const getAblePage = () => {
 const getDisablePage = () => {
   form.classList.add('ad-form--disabled');
   filters.classList.add('map__filters--disabled');
-  [...filter,
-    ...inputs,
-    textArea,
-    ...buttons,
-    ...featuresFilters,
-  ].forEach((element) => {
+  formInputs.forEach((element) => {
     element.disabled = true;
   });
 }

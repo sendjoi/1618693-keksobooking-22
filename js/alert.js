@@ -56,8 +56,4 @@ const showAlert = (message) => {
   }, 3000);
 };
 
-const formReset = () => {
-  document.querySelector('.ad-form').reset();
-};
-
-export { showMessage, showAlert, formReset };
+export { showMessage, showAlert};

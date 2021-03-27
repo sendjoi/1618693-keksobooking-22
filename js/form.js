@@ -1,6 +1,6 @@
 'use strict';
 import {showMessage} from './alert.js';
-import {http} from './server-app.js';
+import {http} from './http.js';
 import {SENDING_ADDRESS} from './config.js';
 
 

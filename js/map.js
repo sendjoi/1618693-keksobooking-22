@@ -1,6 +1,6 @@
 'use strict'
 import {getAblePage, normalizeAddress} from './util.js';
-import  {addingOffers} from './offer.js';
+import  {createOffer} from './offer.js';
 import {putAddressinInput} from './form.js';
 import {
   MAP_HTTP,
@@ -106,7 +106,7 @@ const drawMap = (allOffers) => {
     marker
       .addTo(map)
       .bindPopup(
-        addingOffers(point),
+        createOffer(point),
         {
           keepInView: true,
         },

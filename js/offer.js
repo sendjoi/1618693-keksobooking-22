@@ -12,7 +12,7 @@ const PlacementMap = {
   DEFAULT: 'Не установлено',
 };
 
-const addingOffers = (point) => {
+const createOffer = (point) => {
   const cardCopy = templateFragment.cloneNode(true);
   cardCopy.querySelector('.popup__title').textContent = point.offer.title;
   cardCopy.querySelector('.popup__text--address').textContent = point.offer.address;
@@ -30,4 +30,4 @@ const addingOffers = (point) => {
   return cardCopy;
 };
 
-export {addingOffers};
+export {createOffer};

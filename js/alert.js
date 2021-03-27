@@ -15,10 +15,9 @@ const setClickHandler = (element) => {
   element.addEventListener('click' , () => {
     element.remove();
   })
-  element.removeEventListener('click' , () => {
-    element.remove();
-  })
+  element.removeEventListener('click')
 }
+
 const showErrorMessage = () => {
   const errorMessage = templateError.cloneNode(true);
   mainForm.append(errorMessage);
@@ -35,7 +34,7 @@ const showErrorMessage = () => {
   setClickHandler(errorMessageButton);
 }
 
-const getSuccessMessage = (mapReset) => {
+const showSuccessMessage = () => {
   const successMessage = templateSuccess.cloneNode(true);
   mainForm.append(successMessage);
 
@@ -47,20 +46,21 @@ const getSuccessMessage = (mapReset) => {
   }
   document.addEventListener('keydown', onKeydown);
   setClickHandler(successMessage);
-  document.querySelector('.ad-form').reset();
-  mapReset();
 }
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.classList.add('.custom__error_message');
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {
     alertContainer.remove();
   }, 3000);
 }
-export {getSuccessMessage, showErrorMessage, showAlert}
+
+const formReset = () => {
+  document.querySelector('.ad-form').reset();
+}
+
+export {showSuccessMessage, showErrorMessage, showAlert, formReset}

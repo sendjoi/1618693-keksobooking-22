@@ -46,6 +46,11 @@ const mainPinReset = () => {
   mainPinCreate();
 }
 
+const resetMapPin = () => {
+  mapReset();
+  mainPinReset();
+}
+
 const mainPinCreate = () => {
   mainPinIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
@@ -107,5 +112,5 @@ const mapInit = () => {
   mainPinCreate();
 }
 
-export {mapInit, mapRender, mainPinCreate, mapReset, mainPinReset};
+export {mapInit, mapRender, mainPinCreate, resetMapPin};
 

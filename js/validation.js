@@ -32,6 +32,7 @@ const filtreRooms = (roomsList, selectedValue) => {
     element.style.display= RoomsMap[selectedValue][index];
   })
 }
+
 const validationInit = () => {
   filtreRooms(document.querySelectorAll('#capacity option'), 1);
 }
@@ -58,6 +59,7 @@ const getValidation = () => {
   housingType.addEventListener('change', (event) => {
     offerPriceField.placeholder = MinpriceMap[event.target.value];
   })
+
   const minPriceValidation = (minPrice) => {
     offerPriceField.setCustomValidity(`Минимальная цена ${minPrice}`);
   };
@@ -81,6 +83,7 @@ const getValidation = () => {
   offerRoomsInput.addEventListener('input', (evt) => {
     filtreRooms(roomsOptions, evt.target.value);
   })
+
   validationInit();
 }
 export {getValidation, validationInit};

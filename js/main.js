@@ -4,12 +4,12 @@ import {formInit} from './form.js';
 import {getValidation, validationInit} from './validation.js';
 import {getDisablePage} from './util.js';
 import {http} from './server-app.js';
-import {mapInit, mapRender, mapReset, mainPinReset} from './map.js';
+import {mapInit, mapRender, resetMapPin} from './map.js';
 import {setFilterAction, filterReset} from './filters.js';
-import {showAlert} from './alert.js';
+import {formReset, showAlert} from './alert.js';
 
 const appReset = () => {
-  const resetFunction =[filterReset, mapReset, mainPinReset, validationInit];
+  const resetFunction =[filterReset, resetMapPin, validationInit, formReset];
   resetFunction.forEach((func) => func());
 }
 getDisablePage();

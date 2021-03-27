@@ -16,6 +16,7 @@ const fillPhotos = (photosBlock, photosObjArray) => {
   })
   photoTemplate.remove();
 }
+
 const fillFeatures = (featuresBlock, featuresArray) => {
   const FeaturesMap = {
     'wifi': 'popup__feature--wifi',
@@ -37,11 +38,13 @@ const fillFeatures = (featuresBlock, featuresArray) => {
     featuresBlock.remove();
   }
 }
-const getRemoveSpaceBlock = (block, fieldData) => {
+
+const removeSpaceBlock = (block, fieldData) => {
   if (!fieldData) {
     block.remove();
   }
 }
+
 const getAblePage = () => {
   form.classList.remove('ad-form--disabled');
   filters.classList.remove('map__filters--disabled');
@@ -54,6 +57,7 @@ const getAblePage = () => {
     element.disabled = false;
   });
 }
+
 const getDisablePage = () => {
   form.classList.add('ad-form--disabled');
   filters.classList.add('map__filters--disabled');
@@ -66,9 +70,11 @@ const getDisablePage = () => {
     element.disabled = true;
   });
 }
+
 const normalizeAddress = (address) => {
   return address.lat.toFixed(5) + ', ' + address.lng.toFixed(5);
 }
+
 const debounce = (func, wait, immediate) => {
   let timeout;
   return function executedFunction() {
@@ -89,7 +95,7 @@ const debounce = (func, wait, immediate) => {
     }
   };
 }
-export {fillPhotos, getAblePage, getDisablePage, normalizeAddress, debounce, fillFeatures, getRemoveSpaceBlock};
+export {fillPhotos, getAblePage, getDisablePage, normalizeAddress, debounce, fillFeatures, removeSpaceBlock};
 
 
 

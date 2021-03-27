@@ -1,8 +1,17 @@
 'use strict'
 import {getAblePage, normalizeAddress} from './util.js';
-import  {addingOffers} from './create-offers.js';
+import  {addingOffers} from './offer.js';
 import {putAddressinInput} from './form.js';
-import {MAP_HTTP, MAP_ATT, TOKIO_CENTR, MAP_ZOOM, MAP_MAIN_PIN_SIZE, MAP_MAIN_PIN_ANCHOR_CENTER, MAP_PIN_SIZE, MAP_PIN_ANCHOR_CENTER} from './config.js';
+import {
+  MAP_HTTP,
+  MAP_ATT,
+  TOKIO_CENTR,
+  MAP_ZOOM,
+  MAP_MAIN_PIN_SIZE,
+  MAP_MAIN_PIN_ANCHOR_CENTER,
+  MAP_PIN_SIZE,
+  MAP_PIN_ANCHOR_CENTER
+} from './config.js';
 
 let map = null;
 let mainPinMarker;

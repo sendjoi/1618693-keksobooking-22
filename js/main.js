@@ -1,12 +1,12 @@
 'use strict'
 import {DATA_ADDRESS} from './config.js';
-import {formInit} from './form.js';
+import {formReset, formInit} from './form.js';
 import {validationReset, validationInit} from './validation.js';
 import {getDisablePage} from './util.js';
 import {http} from './server-app.js';
 import {mapInit, mapRender, resetMapPin} from './map.js';
 import {setFilterAction, filterReset} from './filters.js';
-import {formReset, showAlert} from './alert.js';
+import {showAlert} from './alert.js';
 
 const appReset = () => {
   const resetFunction =[filterReset, resetMapPin, formReset, validationReset];

@@ -1,5 +1,5 @@
 'use strict';
-import {showSuccessMessage, showErrorMessage} from './alert.js';
+import {showMessage} from './alert.js';
 import {http} from './server-app.js';
 import {SENDING_ADDRESS} from './config.js';
 
@@ -11,17 +11,21 @@ const putAddressinInput = (coordinates) => {
   addressInput.value = coordinates;
 };
 
+const formReset = () => {
+  offerForm.reset();
+};
+
 const formInit = (appReset) => {
   offerForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     http(SENDING_ADDRESS, 'POST', evt.target).then(() => {
-      showSuccessMessage();
+      showMessage('success');
       appReset();
     })
       .catch(() => {
-        showErrorMessage();
+        showMessage('error');
       })
   })
 };
 
-export {putAddressinInput, formInit};
+export {putAddressinInput, formInit, formReset};

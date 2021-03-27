@@ -7,6 +7,15 @@ const inputs = document.querySelectorAll('input');
 const textArea = document.querySelector('textarea');
 const buttons = document.querySelectorAll('button');
 
+const FeaturesMap = {
+  'wifi': 'popup__feature--wifi',
+  'dishwasher': 'popup__feature--dishwasher',
+  'parking': 'popup__feature--parking',
+  'washer': 'popup__feature--washer',
+  'elevator': 'popup__feature--elevator',
+  'conditioner': 'popup__feature--conditioner',
+}
+
 const fillPhotos = (photosBlock, photosObjArray) => {
   const photoTemplate = photosBlock.querySelector('.popup__photo');
   photosObjArray.forEach((photosSrc) => {
@@ -18,14 +27,6 @@ const fillPhotos = (photosBlock, photosObjArray) => {
 };
 
 const fillFeatures = (featuresBlock, featuresArray) => {
-  const FeaturesMap = {
-    'wifi': 'popup__feature--wifi',
-    'dishwasher': 'popup__feature--dishwasher',
-    'parking': 'popup__feature--parking',
-    'washer': 'popup__feature--washer',
-    'elevator': 'popup__feature--elevator',
-    'conditioner': 'popup__feature--conditioner',
-  }
   featuresBlock.innerHTML = ' ';
   if (featuresArray[0]) {
     featuresArray.forEach((feature) => {
@@ -78,20 +79,18 @@ const normalizeAddress = (address) => {
 const debounce = (func, wait, immediate) => {
   let timeout;
   return function executedFunction() {
-    const context = this;
-    const args = arguments;
 
     const later = () => {
       timeout = null;
       if (!immediate) {
-        func.apply(context, args);
+        func.apply(null);
       }
     };
     const callNow = immediate && !timeout;
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
     if (callNow) {
-      func.apply(context, args);
+      func.apply(null);
     }
   };
 };

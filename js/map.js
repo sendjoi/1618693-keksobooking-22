@@ -115,4 +115,3 @@ const mapInit = () => {
 };
 
 export {mapInit, mapRender, mainPinCreate, resetMapPin};
-

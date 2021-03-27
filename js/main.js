@@ -25,6 +25,3 @@ http(DATA_ADDRESS, 'GET')
   });
 
 validationInit();
-
-
-

@@ -105,6 +105,3 @@ export {
   fillFeatures,
   removeSpaceBlock
 };
-
-
-

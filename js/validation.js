@@ -37,6 +37,7 @@ const filtreRooms = (roomsList, selectedValue) => {
 
 const validationReset = (number = 1) => {
   filtreRooms(roomsOptions, number);
+  offerPriceField.placeholder =  MinpriceMap.flat;
 };
 
 const validationInit = () => {
@@ -91,11 +92,8 @@ const validationInit = () => {
   offerRoomsInput.addEventListener('input', (evt) => {
     filtreRooms(roomsOptions, evt.target.value);
   })
-
   offerPriceField.placeholder =  MinpriceMap.flat;
   validationReset();
 };
 
 export {validationReset, validationInit};
-
-

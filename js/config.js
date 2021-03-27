@@ -6,11 +6,13 @@ const TOKIO_CENTR = {
   lat: 35.6895000,
   lng: 139.6917100,
 };
+
 const MAP_ZOOM = 9.4;
 const MAP_MAIN_PIN_SIZE = [52, 52];
 const MAP_MAIN_PIN_ANCHOR_CENTER = [26, 52];
 const MAP_PIN_SIZE = [40, 40];
 const MAP_PIN_ANCHOR_CENTER = [20, 40];
+
 export {
   DATA_ADDRESS,
   SENDING_ADDRESS,

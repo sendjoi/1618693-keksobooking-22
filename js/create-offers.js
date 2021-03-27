@@ -31,4 +31,3 @@ const addingOffers = (point) => {
 };
 
 export {addingOffers};
-

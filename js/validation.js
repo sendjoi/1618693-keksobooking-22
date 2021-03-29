@@ -24,6 +24,7 @@ const offerRoomsInput = document.querySelector('#room_number');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const roomsValue = document.querySelector('#capacity');
+const buttonReset = document.querySelector('.ad-form__reset');
 
 const filtreRooms = (roomsList, selectedValue) => {
   roomsValue.value = selectedValue;
@@ -94,6 +95,11 @@ const validationInit = () => {
   })
   offerPriceField.placeholder =  MinpriceMap.flat;
   validationReset();
+
+  buttonReset.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    validationReset();
+  })
 };
 
 export {validationReset, validationInit};

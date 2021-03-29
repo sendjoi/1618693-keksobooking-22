@@ -7,6 +7,7 @@ import {http} from './http.js';
 import {mapInit, mapRender, resetMapPin} from './map.js';
 import {setFilterAction, filterReset} from './filters.js';
 import {showAlert} from './alert.js';
+import './avatar.js';
 
 const appReset = () => {
   const resetFunction =[filterReset, resetMapPin, formReset, validationReset];

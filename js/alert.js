@@ -56,4 +56,4 @@ const showAlert = (message) => {
   }, 3000);
 };
 
-export { showMessage, showAlert};
+export {showMessage, showAlert};

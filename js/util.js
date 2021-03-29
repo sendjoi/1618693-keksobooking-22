@@ -13,7 +13,7 @@ const formInputs = [
   textArea,
   buttons,
   featuresFilters,
-]
+];
 
 const FeaturesMap = {
   'wifi': 'popup__feature--wifi',
@@ -22,7 +22,7 @@ const FeaturesMap = {
   'washer': 'popup__feature--washer',
   'elevator': 'popup__feature--elevator',
   'conditioner': 'popup__feature--conditioner',
-}
+};
 
 const fillPhotos = (photosBlock, photosObjArray) => {
   const photoTemplate = photosBlock.querySelector('.popup__photo');
